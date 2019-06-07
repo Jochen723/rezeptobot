@@ -203,7 +203,7 @@ var number = getUrlVars()["q"];
                   </li>
                 -->
                   <li class="nav-item btn-submit-recipe">
-                      <a class="nav-link" href="submit-recipes.html"><i class="fa fa-upload" aria-hidden="true"></i> neues Rezept</a>
+                      <a class="nav-link" href="neuesrezept.php"><i class="fa fa-upload" aria-hidden="true"></i> neues Rezept</a>
                   </li>
               </ul>
           </div>
