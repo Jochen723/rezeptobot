@@ -25,6 +25,7 @@
 <script type = "text/javascript" language = "javascript">
 
 var jsonObj = [];
+var jsonObj2 = [];
 
 function myFunction() {
   document.getElementById("rezepttitel").style.border = "1px solid #ced4da";
@@ -43,6 +44,7 @@ $(document).ready(function(){
       $("#exampleModal").modal();
       document.getElementById("rezepttitel").style.border = "2px solid red";
     } else {
+
       let  elems = document.getElementById('sortable').childNodes;
       let elems2 = null;
       let elems3 = null;
@@ -86,8 +88,6 @@ $(document).ready(function(){
                           vareinheit = elems5[m].id;
                           var selected = document.getElementById(vareinheit);
                           opt = selected.options[selected.selectedIndex];
-                          //console.log(vareinheit);
-
                         }
                       }
                     } else if (elems3[k].id === "zutatenzutat") {
@@ -114,11 +114,6 @@ $(document).ready(function(){
                       }
                     }
                   }
-                  console.log(document.getElementById(varanzahl).value);
-                  console.log(opt.id);
-                  console.log(opt2.id);
-                  console.log(document.getElementById(varzusatz).value);
-
                   var new_obj = {
                     'anzahl':document.getElementById(varanzahl).value,
                     'einheit':opt.id,
@@ -134,7 +129,50 @@ $(document).ready(function(){
 
 
         }
+
+        let elems22 = document.getElementById('sortable2').childNodes;
+        let elems23 = null;
+        let elems24 = null;
+        let elems25 = null;
+        let varKategorie = null;
+
+        for (let i2=0; i2<elems22.length; i2++) {
+            if (elems22[i2].id === "kategoriereihe") {
+              //console.log("Neue Zutatenreihe");
+              elems23 = elems22[i2].childNodes;
+              for (let j3=0; j3<elems23.length; j3++) {
+                if (elems23[j3].id === "kategorierow") {
+                  console.log("Neue Zutatenrow");
+                  elems24 = elems23[j3].childNodes;
+                  for (let k2=0; k2<elems24.length; k2++) {
+                    if (elems24[k2].id === "kategorieinstanz") {
+                      elems25 = elems24[k2].childNodes;
+                      console.log("Neue Zutatenanzahl");
+                      for (let l2=0; l2<elems25.length; l2++) {
+                        if (elems25[l2].id !== undefined && elems25[l2].id !== "") {
+                          varKategorie = elems25[l2].id;
+                          var selected = document.getElementById(varKategorie);
+                          var opt5 = selected.options[selected.selectedIndex];
+                          console.log(opt5);
+                          var new_obj2 = {
+                            'id':opt5.id,
+
+                          };
+
+                              jsonObj2.push(new_obj2);
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              }
+          }
+
+
       var jsonTest = jsonObj;
+      var jsonTest2 = jsonObj2;
+
 
       var titel = document.getElementById("rezepttitel").value;
       var durchfuehrung = document.getElementById("durchfuehrung").value;
@@ -156,7 +194,8 @@ $(document).ready(function(){
             "einheit" : "Portionen",
             "kochzeit" : kochzeit,
             "vorbereitungszeit" : vorbereitungszeit,
-            "zutatenliste" : jsonTest
+            "zutatenliste" : jsonTest,
+            "kategorienliste" : jsonTest2
         }
 
 
@@ -177,6 +216,27 @@ $(document).ready(function(){
 
 
   });
+
+  $.ajax({
+          type:'GET',
+          url:'db/getCategoryList.php',
+          dataType: "json",
+
+          success:function(data){
+      var x = document.getElementById("kategorieSelect1");
+              for (var i = 0; i < data.length; i++) {
+        var option = document.createElement("option");
+        option.text = data[i].kategorie;
+        option.id = data[i].id;
+        x.add(option);
+
+      }
+          },
+    error: function (request, error) {
+      console.log(arguments);
+      alert(" Can't do because: " + error);
+  },
+      });
 
   $.ajax({
           type:'GET',
@@ -246,33 +306,6 @@ $(document).ready(function(){
                   <li class="nav-item">
                       <a class="nav-link" href="uebersicht.php">Von A - Z</a>
                   </li>
-                  <!--
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Demo
-            </a>
-                      <div class="dropdown-menu">
-                          <a class="dropdown-item" href="homepage-1.html">Homepage-1</a>
-                          <a class="dropdown-item" href="homepage-2.html">Homepage-2</a>
-                          <a class="dropdown-item" href="homepage-3.html">Homepage-3</a>
-                      </div>
-                  </li>
-
-                  <li class="nav-item dropdown active">
-                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Recipes
-            </a>
-                      <div class="dropdown-menu">
-                          <a class="dropdown-item" href="browse-recipes.html">Browse Recipes</a>
-                          <a class="dropdown-item" href="recipe-detail.html">Recipe Detail</a>
-                      </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="uebersicht.php" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              von A - Z
-            </a>
-                  </li>
-                -->
                   <li class="nav-item btn-submit-recipe">
                       <a class="nav-link" href="neuesrezept.php"><i class="fa fa-upload" aria-hidden="true"></i> neues Rezept</a>
                   </li>
@@ -302,30 +335,34 @@ $(document).ready(function(){
                             <input id="rezepttitel" type="text" class="form-control" oninput="myFunction()">
                         </div>
 
-<!--
                         <div class="form-group">
-                            <label>Wähle eine Kategorie</label>
-                            <select class="js-search-category form-control" name="category" data-placeholder="Choose Category">
-                  <option value="1">All</option>
-                  <option value="2">Breakfast</option>
-                  <option value="3">Lunch</option>
-                  <option value="4">Beverages</option>
-                  <option value="5">Appetizers</option>
-                  <option value="6">Soups</option>
-                  <option value="7">Salads</option>
-                  <option value="8">Beef</option>
-                  <option value="9">Poultry</option>
-                  <option value="10">Pork</option>
-                  <option value="11">Seafood</option>
-                  <option value="12">Vegetarian</option>
-                  <option value="13">Vegetables</option>
-                  <option value="14">Desserts</option>
-                  <option value="15">Canning / Freezing</option>
-                  <option value="16">Breads</option>
-                  <option value="17">Holidays</option>
-                </select>
+                              <label>Kategorien</label>
+
+                            <div id="sortable2">
+                                <div id="kategoriereihe" class="box ui-sortable-handle">
+                                  <div id="kategorierow" class="row">
+                                    <div class="col-lg-2 col-sm-2">
+                                        <i class="fa fa-arrows" aria-hidden="true"></i>
+                                    </div>
+                                    <div id="kategorieinstanz" class="col-lg-8 col-sm-8">
+                                      <select class="form-control" id="kategorieSelect1">
+                                      </select>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-2">
+                                        <i class="fa fa-times-circle-o minusbtn" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
                         </div>
-                      -->
+<a href="#" class="btn btn-light2" style="
+    background-color: #363636;
+    color: #fff;">Weitere Kategorie</a>
+<br><br>
+
+
 
                         <!--
                         <div class="form-group">

@@ -2,6 +2,7 @@
 $(document).ready(function() {
 
   var zahl = 2;
+  var zahl2 = 2;
 
     $('.js-search-category, .js-search-category2').select2();
 
@@ -13,9 +14,50 @@ $(document).ready(function() {
     $("#sortable").sortable();
     $("#sortable").disableSelection();
 
+$(".btn-light2").click(function() {
+
+var idKategorie = "kategorieSelect"+zahl2;
+
+  $("#sortable2").append('<div id="kategoriereihe" class="box ui-sortable-handle">\
+              <div id="kategorierow" class="row">\
+                <div class="col-lg-2 col-sm-2">\
+                  <i class="fa fa-arrows" aria-hidden="true"></i>\
+                </div>\
+                <div id="kategorieinstanz" class="col-lg-8 col-sm-8">\
+                <select class="form-control" name="category" id='+idKategorie+'></select>\
+                </div>\
+                <div class="col-lg-2 col-sm-2">\
+                  <i class="fa fa-times-circle-o minusbtn" aria-hidden="true"></i>\
+                </div>\
+              </div>\
+            </div>');
+
+            $.ajax({
+                    type:'GET',
+                    url:'db/getCategoryList.php',
+                    dataType: "json",
+
+                    success:function(data){
+                var x = document.getElementById(idKategorie);
+                        for (var i = 0; i < data.length; i++) {
+                  var option = document.createElement("option");
+                  option.text = data[i].kategorie;
+                  option.id = data[i].id;
+                  x.add(option);
+
+                }
+                    },
+              error: function (request, error) {
+                console.log(arguments);
+                alert(" Can't do because: " + error);
+            },
+          });
+          zahl2++;
+
+});
+
     $(".btn-light").click(function() {
 
-      console.log(zahl);
       var idZutat = "zutatSelect"+zahl;
       var idEinheit = "einheitSelect"+zahl;
       var idAnzahl = "anzahlSelect"+zahl;
@@ -48,7 +90,7 @@ $(document).ready(function() {
 
                   $.ajax({
                           type:'GET',
-                          url:'getIngredientList.php',
+                          url:'db/getIngredientList.php',
                           dataType: "json",
 
                           success:function(data){
@@ -68,7 +110,7 @@ $(document).ready(function() {
                       });
                       $.ajax({
                               type:'GET',
-                              url:'getUnitList.php',
+                              url:'db/getUnitList.php',
                               dataType: "json",
 
                               success:function(data){

@@ -21,6 +21,7 @@ $einheit = $test->einheit;
 $kochzeit = $test->kochzeit;
 $vorbereitungszeit = $test->vorbereitungszeit;
 $zutatenliste = $test->zutatenliste;
+$kategorienliste = $test->kategorienliste;
 
 $bildpfad = '';
 
@@ -40,6 +41,12 @@ foreach ($zutatenliste as &$zutat) {
     $zutatsql = "INSERT INTO rezept_zutatenliste (rezept_id, zutatenliste_id, anzahl, einheit_id, zusatz) VALUES (".$last_insert.",".$zutat->zutat.",".$anzahl.",".$zutat->einheit.", '".$zutat->zusatz."')";
 
   $conn->query($zutatsql);
+}
+
+foreach ($kategorienliste as &$kategorie) {
+    $kategoriesql = "INSERT INTO rezept_kategorienliste (rezept_id, kategorien_id) VALUES (".$last_insert.",".$kategorie->id.")";
+    echo $kategoriesql;
+  $conn->query($kategoriesql);
 }
 
 
