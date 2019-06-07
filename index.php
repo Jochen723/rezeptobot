@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Grill - Homepage 3#</title>
+    <title>Rezeptobot - Home</title>
 
     <!---Font Icon-->
     <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -44,7 +44,7 @@
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php">Kalender</a>
+                        <a class="nav-link" href="eventkalender.php">Kalender</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="uebersicht.php">Von A - Z</a>
