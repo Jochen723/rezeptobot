@@ -237,14 +237,14 @@ var number = getUrlVars()["q"];
 
                     <!--
                     <p>Lorem ipsum dolor sit amet, usu eu vocibus laboramus appellantur, pro no natum ullum omittam. Mei vitae utinam complectitur eu. Te usu cibo vulputate. Id propriae adipisci pro. Legere nominati ut mel, natum libris at vix.</p>
-                  -->
+
 
                     <div class="tag">
                         <a href="#">Nudeln</a>
                         <a href="#">Thunfisch</a>
                         <a href="#">Sahne</a>
                     </div>
-
+-->
                     <div class="ingredient-direction">
                         <div class="row">
                             <div class="col-lg-6 col-sm-6">
