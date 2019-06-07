@@ -228,53 +228,58 @@ $(document).ready(function(){
 <body>
 
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        <div class="container-fluid justify-content-center">
-            <a class="navbar-brand" href="index.html"><i class="fa fa-cutlery" aria-hidden="true"></i>  Rezeptobot</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Demo
-              </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="homepage-1.html">Homepage-1</a>
-                            <a class="dropdown-item" href="homepage-2.html">Homepage-2</a>
-                            <a class="dropdown-item" href="homepage-3.html">Homepage-3</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Recipes
-              </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="browse-recipes.html">Browse Recipes</a>
-                            <a class="dropdown-item" href="recipe-detail.html">Recipe Detail</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Pages
-              </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="typography.html">Typography</a>
-                            <a class="dropdown-item" href="contact.html">Contact</a>
-                        </div>
-                    </li>
-                    <li class="nav-item btn-submit-recipe">
-                        <a class="nav-link" href="submit-recipes.html"><i class="fa fa-upload" aria-hidden="true"></i> neues Rezept</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <div class="container-fluid justify-content-center">
+          <a class="navbar-brand" href="index.php"><i class="fa fa-cutlery" aria-hidden="true"></i>  Rezeptobot</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+          <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <a class="nav-link" href="index.php">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="index.php">Kalender</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="uebersicht.php">Von A - Z</a>
+                  </li>
+                  <!--
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Demo
+            </a>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="homepage-1.html">Homepage-1</a>
+                          <a class="dropdown-item" href="homepage-2.html">Homepage-2</a>
+                          <a class="dropdown-item" href="homepage-3.html">Homepage-3</a>
+                      </div>
+                  </li>
+
+                  <li class="nav-item dropdown active">
+                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Recipes
+            </a>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="browse-recipes.html">Browse Recipes</a>
+                          <a class="dropdown-item" href="recipe-detail.html">Recipe Detail</a>
+                      </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="uebersicht.php" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              von A - Z
+            </a>
+                  </li>
+                -->
+                  <li class="nav-item btn-submit-recipe">
+                      <a class="nav-link" href="neuesrezept.php"><i class="fa fa-upload" aria-hidden="true"></i> neues Rezept</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
 
     <!-- Submit Recipe-->
     <div class="submit">
