@@ -77,7 +77,7 @@
                    by.appendChild(i2);
 
                    var a = document.createElement('a');
-                   a.href = "recipe-detail.php?q=" + data[i].id;
+                   a.href = "rezeptdetails.php?q=" + data[i].id;
                    var img = document.createElement('img');
 
 
@@ -99,7 +99,7 @@
                    var a2 = document.createElement('a');
                    var linkText = document.createTextNode(data[i].titel);
                    a2.appendChild(linkText);
-                   a2.href = "recipe-detail.php?q=" + data[i].id;
+                   a2.href = "rezeptdetails.php?q=" + data[i].id;
                    var h = document.createElement("H2");
 
                    h.appendChild(a2);
