@@ -50,10 +50,6 @@ var number = getUrlVars()["q"];
               test = test.replace(".0" , "");
               test = test.replace("." , ",")
 
-
-
-
-
               var zusatz = data[1][i].zusatz
 
               var inhalt = test + ' ' + data[1][i].einheit + ' ' + data[1][i].zutat;
@@ -115,6 +111,16 @@ var number = getUrlVars()["q"];
             x4.appendChild(t3);
             x3.appendChild(x4);
             por3.appendChild(pe3);
+
+            for (var j = 0; j < data[2].length; j++){
+              var por4 = document.getElementById("tag");
+              a2 = document.createElement('a');
+              a2.href =  '#'; // Insted of calling setAttribute
+              a2.innerHTML = data[2][j].kategorie;
+
+              por4.appendChild(a2);// <a>INNER_TEXT</a>
+            }
+
 
 
 
@@ -238,13 +244,10 @@ var number = getUrlVars()["q"];
                     <!--
                     <p>Lorem ipsum dolor sit amet, usu eu vocibus laboramus appellantur, pro no natum ullum omittam. Mei vitae utinam complectitur eu. Te usu cibo vulputate. Id propriae adipisci pro. Legere nominati ut mel, natum libris at vix.</p>
 
-
-                    <div class="tag">
-                        <a href="#">Nudeln</a>
-                        <a href="#">Thunfisch</a>
-                        <a href="#">Sahne</a>
-                    </div>
 -->
+                    <div id="tag" class="tag">
+                    </div>
+
                     <div class="ingredient-direction">
                         <div class="row">
                             <div class="col-lg-6 col-sm-6">

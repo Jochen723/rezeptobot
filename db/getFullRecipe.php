@@ -28,11 +28,21 @@
      $json2[] = $row2;
  }
 
+ $sql3 = 'SELECT * FROM kategorienliste INNER JOIN rezept_kategorienliste ON kategorienliste.id = rezept_kategorienliste.kategorien_id WHERE rezept_id = ' . $appid;
+
+	$json3 = [];
+
+ $result3 = $conn->query($sql3);
+ while($row3 = $result3->fetch_assoc()) {
+     $json3[] = $row3;
+ }
+
 
  $jsonArray = [];
 
  array_push($jsonArray, $json);
  array_push($jsonArray, $json2);
+ array_push($jsonArray, $json3);
  echo json_encode($jsonArray);
  $conn->close(); // finally, close the connection
 
