@@ -105,6 +105,7 @@
                    h.appendChild(a2);
                    box.appendChild(h);
 
+                   /*
                    var tag = document.createElement('div');
                    tag.classList.add("tag");
 
@@ -115,6 +116,7 @@
                    tag.appendChild(a3);
 
                    box.appendChild(tag);
+                   */
 
                    g.appendChild(box);
                    rezeptliste.appendChild(g);
