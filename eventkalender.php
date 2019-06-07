@@ -193,11 +193,8 @@ today = mm + '/' + dd + '/' + yyyy;
   dataType: "json",
   url: 'db/updateEvent.php',
   success:function(data){
-	  alert(data);
   },
   error: function (request, error) {
-        console.log(arguments);
-        alert(" Can't do because: " + error);
     },
 });
 
@@ -372,7 +369,7 @@ $.ajax({
                         <a class="nav-link" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php">Kalender</a>
+                        <a class="nav-link" href="eventkalender.php">Kalender</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="uebersicht.php">Von A - Z</a>
