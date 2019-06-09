@@ -3,6 +3,13 @@
 
  include 'db_verbindung.php';
 
+$empfaenger = "jonaskortum@googlemail.com";
+$betreff = "Die Mail-Funktion";
+$from = "From: Vorname Nachname <kortum@familie-kortum.com>";
+$text = "Hier lernt Ihr, wie man mit PHP Mails verschickt";
+
+mail($empfaenger, $betreff, $text, $from);
+
  // Create connection
  $conn = get_db_connection();
   mysqli_set_charset($conn,"utf8");
@@ -19,7 +26,7 @@
  }
 
 
- $sql2 = 'SELECT anzahl,zutat,einheit,zusatz FROM rezept_zutatenliste INNER JOIN zutatenliste ON rezept_zutatenliste.zutatenliste_id = `zutatenliste`.id INNER JOIN einheitenliste ON rezept_zutatenliste.einheit_id = einheitenliste.id WHERE rezept_id = ' . $appid;
+ $sql2 = 'SELECT anzahl,zutat,einheit,zusatz,zutatenliste_id,einheit_id FROM rezept_zutatenliste INNER JOIN zutatenliste ON rezept_zutatenliste.zutatenliste_id = `zutatenliste`.id INNER JOIN einheitenliste ON rezept_zutatenliste.einheit_id = einheitenliste.id WHERE rezept_id = ' . $appid;
 
 	$json2 = [];
 

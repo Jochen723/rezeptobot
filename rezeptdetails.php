@@ -28,7 +28,14 @@
 
 $(document).ready(function(){
 
+
+
+
 var number = getUrlVars()["q"];
+
+var aendernButton = document.getElementById('rezeptaendern');
+aendernButton.href =  'rezeptaendern.php?q='+number; // Insted of calling setAttribute
+
 
  $.ajax({
           type:'GET',
@@ -261,6 +268,13 @@ var number = getUrlVars()["q"];
                                 </ol>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6">
+                              <a id="rezeptaendern" href="rezeptaendern.php" class="btn" style="
+                                  background-color: #363636;
+                                  color: #fff;"> Rezept ändern</a>
+                            </div>
+                        </div>
                     </div>
 
                     <!--
@@ -357,6 +371,7 @@ var number = getUrlVars()["q"];
                 </div-->
             </div>
         </div>
+
     </div>
 
 
