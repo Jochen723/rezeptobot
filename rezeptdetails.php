@@ -28,8 +28,97 @@
 
 $(document).ready(function(){
 
+  $(".btn-wunderlist").click(function() {
+
+    var jsonObj = [];
+
+      var checkboxes = document.getElementsByName('wunderlistboxen');
+      var checkboxesChecked = [];
+        // loop over them all
+        for (var i=0; i<checkboxes.length; i++) {
+           // And stick the checked ones onto an array...
+           if (checkboxes[i].checked) {
+             var v = checkboxes[i].value;
+             v = v.substring(0, v.length - 5);
+             v = v.replace('  ',' ');
+             jsonObj.push(v);
+           }
+        }
+
+        $.ajax({
+        type: "POST",
+        data: {event: JSON.stringify(jsonObj)},
+        dataType: 'text',  // what to expect back from the PHP script, if anything
+        url: 'db/saveToWunderlist.php',
+        success: function(php_script_response){
 
 
+      //window.location.href = "uebersicht.php";
+      }
+        });
+
+        $('#wunderlistmodal').modal('hide');
+
+
+  });
+
+  $(".btn-less-yield").click(function() {
+
+    var anzahlPortionenText1 = document.getElementById('anzahlPortionenmodal').innerText;
+
+    var anzahlPortionenText2 = anzahlPortionenText1.substr(0,anzahlPortionenText1.indexOf(' '));
+    var anzahlPortionenText3 = anzahlPortionenText1.substr(anzahlPortionenText1.indexOf(' '));
+    var integer = parseInt(anzahlPortionenText2, 10);
+    if (integer >1) {
+      integer2 = integer-1;
+      document.getElementById('anzahlPortionenmodal').innerText = integer2 + anzahlPortionenText3;
+    }
+
+    var x = document.getElementsByClassName("modaleZutaten");
+    for (var n = 0; n < x.length; n++) {
+      var text = x[n].innerText;
+      text = text.substring(1);
+      var text2 = text.substring(0, text.indexOf(' '));
+      var text3 = text.substring(text.indexOf(' '));
+      var value = parseFloat(text2.replace(",", "."));
+
+      zahl = Math.round (value/integer*integer2 * 100) / 100;  // 217.43;
+      x[n].innerText = ' '+zahl + ' ' + text3;
+    }
+
+
+
+  });
+
+  $(".btn-more-yield").click(function() {
+
+    var anzahlPortionenText1 = document.getElementById('anzahlPortionenmodal').innerText;
+
+    var anzahlPortionenText2 = anzahlPortionenText1.substr(0,anzahlPortionenText1.indexOf(' '));
+    var anzahlPortionenText3 = anzahlPortionenText1.substr(anzahlPortionenText1.indexOf(' '));
+    var integer = parseInt(anzahlPortionenText2, 10);
+      integer2 = integer+1;
+      document.getElementById('anzahlPortionenmodal').innerText = integer2 + anzahlPortionenText3;
+
+
+      var x = document.getElementsByClassName("modaleZutaten");
+      for (var n = 0; n < x.length; n++) {
+        var text = x[n].innerText;
+        text = text.substring(1);
+        var text2 = text.substring(0, text.indexOf(' '));
+        var text3 = text.substring(text.indexOf(' '));
+        var value = parseFloat(text2.replace(",", "."));
+        console.log('zu teilende Zahl: ' + value);
+
+        zahl = Math.round (value/integer*integer2 * 100) / 100;  // 217.43;
+        console.log(zahl);
+        x[n].innerText = ' '+zahl + ' ' + text3;
+
+      }
+
+
+
+  });
 
 var number = getUrlVars()["q"];
 
@@ -47,6 +136,7 @@ aendernButton.href =  'rezeptaendern.php?q='+number; // Insted of calling setAtt
           success:function(data){
 
             document.getElementById('rezepttitel').innerHTML = data[0][0].titel;
+            var ColorsAvailable = document.getElementById('bodymodal');
 
             for (var i = 0; i < data[1].length; i++){
               var ul = document.getElementById("ingredients");
@@ -68,7 +158,27 @@ aendernButton.href =  'rezeptaendern.php?q='+number; // Insted of calling setAtt
               li.appendChild(document.createTextNode(inhalt));
               li.setAttribute("id", "element4"); // added line
               ul.appendChild(li);
+
+              var color, p, br;
+              color=document.createElement("input");
+              color.value=(inhalt + '</br>');
+              color.type="checkbox";
+              color.id="color";
+              color.name="wunderlistboxen";
+              p =document.createElement("span");
+              p.classList.add("modaleZutaten");
+              p.innerHTML = " " + inhalt;
+              br =document.createElement("br");
+
+              ColorsAvailable.appendChild(color);
+              ColorsAvailable.appendChild(p);
+              ColorsAvailable.appendChild(br);
+
+
+
             }
+            var anzahlPortionenText = document.getElementById('anzahlPortionenmodal');
+            anzahlPortionenText.innerText = data[0][0].anzahlPortionen + " " + data[0][0].einheit;
 
             var test = data[0][0].durchfuehrung;
             data[0][0].durchfuehrung.replace(/↵/, '<br/>');
@@ -188,33 +298,6 @@ aendernButton.href =  'rezeptaendern.php?q='+number; // Insted of calling setAtt
                   <li class="nav-item">
                       <a class="nav-link" href="uebersicht.php">Von A - Z</a>
                   </li>
-                  <!--
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Demo
-            </a>
-                      <div class="dropdown-menu">
-                          <a class="dropdown-item" href="homepage-1.html">Homepage-1</a>
-                          <a class="dropdown-item" href="homepage-2.html">Homepage-2</a>
-                          <a class="dropdown-item" href="homepage-3.html">Homepage-3</a>
-                      </div>
-                  </li>
-
-                  <li class="nav-item dropdown active">
-                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Recipes
-            </a>
-                      <div class="dropdown-menu">
-                          <a class="dropdown-item" href="browse-recipes.html">Browse Recipes</a>
-                          <a class="dropdown-item" href="recipe-detail.html">Recipe Detail</a>
-                      </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="uebersicht.php" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              von A - Z
-            </a>
-                  </li>
-                -->
                   <li class="nav-item btn-submit-recipe">
                       <a class="nav-link" href="neuesrezept.php"><i class="fa fa-upload" aria-hidden="true"></i> neues Rezept</a>
                   </li>
@@ -273,6 +356,36 @@ aendernButton.href =  'rezeptaendern.php?q='+number; // Insted of calling setAtt
                               <a id="rezeptaendern" href="rezeptaendern.php" class="btn" style="
                                   background-color: #363636;
                                   color: #fff;"> Rezept ändern</a>
+                                  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#wunderlistmodal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="wunderlistmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Zutaten zur Wunderlist hinzufügen</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="bodymodalbuttons" class="modal-body" style="text-align: center;">
+        <h5 class="modal-title" id="anzahlPortionenmodal"></h5>
+        <button type="button" class="btn btn-secondary btn-less-yield">eine Portion weniger</button>
+        <button type="button" class="btn btn-secondary btn-more-yield">eine Portion mehr</button><br>
+
+      </div>
+      <div id="bodymodal" class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+        <button type="button" class="btn btn-primary btn-wunderlist">Hinzufügen</button>
+      </div>
+    </div>
+  </div>
+</div>
                             </div>
                         </div>
                     </div>

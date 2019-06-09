@@ -3,13 +3,6 @@
 
  include 'db_verbindung.php';
 
-$empfaenger = "jonaskortum@googlemail.com";
-$betreff = "Die Mail-Funktion";
-$from = "From: Vorname Nachname <kortum@familie-kortum.com>";
-$text = "Hier lernt Ihr, wie man mit PHP Mails verschickt";
-
-mail($empfaenger, $betreff, $text, $from);
-
  // Create connection
  $conn = get_db_connection();
   mysqli_set_charset($conn,"utf8");
