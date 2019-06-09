@@ -150,7 +150,7 @@ aendernButton.href =  'rezeptaendern.php?q='+number; // Insted of calling setAtt
               var zusatz = data[1][i].zusatz
 
               var inhalt = test + ' ' + data[1][i].einheit + ' ' + data[1][i].zutat;
-              if (data[1][i].zusatz !== null && data[1][i].zusatz.length > 0) {
+              if (data[1][i].zusatz !== null && data[1][i].zusatz.length > 0 && data[1][i].zusatz !== "null") {
                 inhalt +=  ' (' + zusatz+')';
               }
 
@@ -356,10 +356,12 @@ aendernButton.href =  'rezeptaendern.php?q='+number; // Insted of calling setAtt
                               <a id="rezeptaendern" href="rezeptaendern.php" class="btn" style="
                                   background-color: #363636;
                                   color: #fff;"> Rezept ändern</a>
+                                  <a id="rezeptaendern" href="rezeptaendern.php"
+                                  class="btn" data-toggle="modal" data-target="#wunderlistmodal" style="
+                                      background-color: #363636;
+                                      color: #fff;"> Wunderlist</a>
                                   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#wunderlistmodal">
-  Launch demo modal
-</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="wunderlistmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
