@@ -205,7 +205,7 @@ $(document).ready(function(){
         dataType: 'text',  // what to expect back from the PHP script, if anything
         url: 'db/saveNewRecipe.php',
         success: function(php_script_response){
-      //window.location.href = "uebersicht.php";
+        window.location.href = "uebersicht.php";
       }
         });
       }
