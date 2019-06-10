@@ -58,7 +58,7 @@
     $( document ).ready(function() {
 		$("#target").click(function(){
 
-			var color = 'blue';
+			var color = '#00cc99';
 
 			var e = document.getElementById("selectArt");
 			var titel = e.options[e.selectedIndex].innerText;
@@ -69,11 +69,11 @@
 
 
 			if (document.getElementById("selectArt").value === 'ess') {
-				color = 'red';
+				color = '#FFCC99';
 			} else if (document.getElementById("selectArt").value == 'aus') {
-				color = 'green';
+				color = '#66CCFF';
 			} else {
-				color = 'yellow';
+				color = '#FFFFCC';
 			}
 
 
@@ -99,11 +99,8 @@
   dataType: "json",
   url: 'db/saveEvent.php',
   success:function(data){
-	  alert(data);
   },
   error: function (request, error) {
-        console.log(arguments);
-        alert(" Can't do because: " + error);
     },
 });
 
@@ -194,7 +191,7 @@ today = mm + '/' + dd + '/' + yyyy;
   url: 'db/updateEvent.php',
   success:function(data){
   },
-  error: function (request, error) {
+  error: function (error) {
     },
 });
 
@@ -241,8 +238,7 @@ $.ajax({
 				}
             },
 			error: function (request, error) {
-        console.log(arguments);
-        alert(" Can't do because: " + error);
+
     },
         });
 });
@@ -273,8 +269,7 @@ $.ajax({
 				}
             },
 			error: function (request, error) {
-        console.log(arguments);
-        alert(" Can't do because: " + error);
+
     },
         });
 });
@@ -305,7 +300,6 @@ $.ajax({
             },
 			error: function (request, error) {
         console.log(arguments);
-        alert(" Can't do because: " + error);
     },
         });
 });
@@ -328,7 +322,6 @@ $.ajax({
             },
 			error: function (request, error) {
         console.log(arguments);
-        alert(" Can't do because: " + error);
     },
         });
 
