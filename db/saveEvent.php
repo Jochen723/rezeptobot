@@ -1,6 +1,6 @@
  <?php
  header("Content-Type: text/html; charset=utf-8");
- 
+
  include 'db_verbindung.php';
 
  // Create connection
@@ -10,7 +10,7 @@
  if ($conn->connect_error) {
      die("Connection failed: " . $conn->connect_error);
  }
- 
+
  $json = $_POST['event'];
 
 $test = json_decode($json);
@@ -21,10 +21,10 @@ $titel = $test->titel;
 $farbe = $test->farbe;
 
 $query = "INSERT INTO event (datum,rezept_id,titel,farbe) VALUES ('".$datum."', ".$essen_id.",'".$titel."','".$farbe."')";
+echo $query;
+$conn->query($query);
 
-$result = $conn->query($query);
- 
  $conn->close(); // finally, close the connection
 
 
-?> 
+?>
