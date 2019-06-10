@@ -21,7 +21,7 @@ $event_id = $test->event_id;
 $query = "UPDATE event SET datum = '".$datum."' WHERE event_id = ".$event_id."; ";
 echo $query;
 
-$result = $conn->query($query);
+$conn->query($query);
 
  $conn->close(); // finally, close the connection
 
