@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Grill - Submit Recipes</title>
+    <title>Rezeptobot - neues Rezept</title>
 
     <!---Font Icon-->
     <link href="css/font-awesome.min.css" rel="stylesheet">
