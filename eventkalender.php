@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 session_start();    // ALTE SESSION STARTEN
-
 if(!isset($_SESSION['userid'])) {
     header('Location: login.php');
-} else {
-
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
   <head>
 
     <meta charset="utf-8">
