@@ -444,6 +444,9 @@ for (var j = 0; j < ingredients.length; j++) {
                   <li class="nav-item">
                       <a class="nav-link" href="uebersicht.php">Von A - Z</a>
                   </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="logout.php">Logout</a>
+                  </li>
                   <li class="nav-item btn-submit-recipe">
                       <a class="nav-link" href="neuesrezept.php"><i class="fa fa-upload" aria-hidden="true"></i> neues Rezept</a>
                   </li>

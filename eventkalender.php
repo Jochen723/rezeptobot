@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+session_start();    // ALTE SESSION STARTEN
+
+if(!isset($_SESSION['userid'])) {
+    header('Location: login.php');
+} else {
+
+}
+?>
   <head>
 
     <meta charset="utf-8">
@@ -85,6 +94,10 @@
         <span class="navbar-toggler-icon"></span>
         </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+              <span class="navbar-text">
+                <?php
+                if(isset($_SESSION['mail'])) {echo $_SESSION['mail'];}?>
+              </span>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">Home</a>
@@ -94,6 +107,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="uebersicht.php">Von A - Z</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Logout</a>
                     </li>
                     <li class="nav-item btn-submit-recipe">
                         <a class="nav-link" href="neuesrezept.php"><i class="fa fa-upload" aria-hidden="true"></i> neues Rezept</a>
