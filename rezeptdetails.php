@@ -31,7 +31,45 @@ if(!isset($_SESSION['userid'])) {
 
 <script type = "text/javascript" language = "javascript">
 
+function renderDate(date) {
+    var res = date.split("/");
+
+    return res[2] + '-' + res[0] + '-' + res[1];
+  }
+
 $(document).ready(function(){
+
+  $(".btn-heutegekocht").click(function() {
+    //
+
+    var number = getUrlVars()["q"];
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+    var myObj = {
+  "datum": yyyy+'-'+mm+'-'+dd,
+  "titel" : document.getElementById('rezepttitel').innerHTML,
+  "farbe" : "#00cc99",
+  "rezept_id" : number
+      }
+
+
+    $.ajax({
+    type: "POST",
+    data: {event: JSON.stringify(myObj)},
+    dataType: 'text',  // what to expect back from the PHP script, if anything
+    url: 'db/saveEvent.php',
+    success: function(php_script_response){
+$('#heutegekochtmodal').modal('hide');
+
+  }
+});
+
+  });
 
   $(".btn-wunderlist").click(function() {
 
@@ -360,15 +398,21 @@ aendernButton.href =  'rezeptaendern.php?q='+number; // Insted of calling setAtt
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 col-sm-6">
+                            <div class="col-lg-8 col-sm-8">
                               <a id="rezeptaendern" href="rezeptaendern.php" class="btn" style="
                                   background-color: #363636;
-                                  color: #fff;"> Rezept ändern</a>
-                                  <a id="rezeptaendern" href="rezeptaendern.php"
+                                  color: #fff;"> Rezept ändern
+                              </a>
+                              <a id="rezeptaendern" href="rezeptaendern.php"
                                   class="btn" data-toggle="modal" data-target="#wunderlistmodal" style="
                                       background-color: #363636;
-                                      color: #fff;"> Wunderlist</a>
-                                  <!-- Button trigger modal -->
+                                      color: #fff;"> Wunderlist
+                              </a>
+                              <a id="rezeptaendern" href="rezeptaendern.php"
+                                    class="btn" data-toggle="modal" data-target="#heutegekochtmodal" style="
+                                        background-color: #363636;
+                                        color: #fff;"> heute gekocht
+                              </a>
 
 
 <!-- Modal -->
@@ -392,6 +436,30 @@ aendernButton.href =  'rezeptaendern.php?q='+number; // Insted of calling setAtt
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
         <button type="button" class="btn btn-primary btn-wunderlist">Hinzufügen</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="heutegekochtmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Heute gekocht</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="bodymodalbuttons" class="modal-body" style="text-align: center;">
+        <h5 class="modal-title" id="anzahlPortionenmodal"></h5>
+        <label for="exampleInputEmail1">Wenn Sie bestätigen, wird das Rezept zum heutigen Tag im Kalender hinzugefügt.</label>
+      </div>
+      <div id="bodymodal" class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-heutegekocht">Hinzufügen</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+
       </div>
     </div>
   </div>

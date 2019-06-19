@@ -16,11 +16,13 @@
 $test = json_decode($json);
 
 $datum = $test->datum;
-$essen_id = $test->essen_id;
 $titel = $test->titel;
 $farbe = $test->farbe;
+$rezept_id = $test->rezept_id;
 
-$query = "INSERT INTO event (datum,rezept_id,titel,farbe) VALUES ('".$datum."', ".$essen_id.",'".$titel."','".$farbe."')";
+
+
+$query = "INSERT INTO event (datum,rezept_id,titel,farbe) VALUES ('".$datum."', ".$rezept_id.",'".$titel."','".$farbe."')";
 echo $query;
 $conn->query($query);
 
