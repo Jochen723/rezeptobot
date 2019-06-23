@@ -24,23 +24,19 @@ if(!isset($_SESSION['userid'])) {
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="icon" href="favicon.ico" />
-    <!--
+
     <style>
     img {
     vertical-align: middle;
     border-style: none;
-    height: 190px;
+    height: 10%;
+    width: 100%;
 
 
 
-    }
-
-    .recipes {
-      height:384px;
     }
 }
     </style>
-  -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -166,7 +162,8 @@ if(!isset($_SESSION['userid'])) {
   					<div class="modal-body">
   						<form>
   							<div class="form-group">
-                  <h5 id="modalTitel" >Test</H5>
+                  <img id="modalImage">
+                  <h5><a id="modaltitellink" href="#"></a></H5>
   								<label>Datum:</label>
   								<input class="form-control" id="modalDate" name="date" placeholder="MM/DD/YYY" type="text"/>
   							</div>

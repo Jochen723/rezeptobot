@@ -37,12 +37,33 @@ $( document ).ready(function() {
           center: 'custom1',
           right: 'title'
         },
+        height: 700,
         eventClick: function(info) {
+
           carName = info;
-          document.getElementById('modalDate').value=renderDate2(info.start._i);
-          document.getElementById('modalTitel').innerHTML = info.title;
-          document.getElementById('modalDate').name = info.id;
-          $("#changeModal").modal();
+
+          var myObj = {
+              "event_id" : carName.id
+          }
+          $.ajax({
+            type: "GET",
+            data: {
+                  'event_id': carName.id
+              },
+            dataType: "json",
+            url: 'db/getRecipeFromEvent.php',
+            success: function(data){
+              for (var i = 0; i < data.length; i++) {
+                document.getElementById('modalDate').value=renderDate2(data[i].datum);
+                document.getElementById('modaltitellink').innerText = data[i].titel;
+                document.getElementById('modaltitellink').href = 'rezeptdetails.php?q='+data[i].id;
+                document.getElementById('modalDate').name = data[i].event_id;
+                document.getElementById('modalImage').src = data[i].bildpfad;
+              }
+
+              $("#changeModal").modal();
+          }
+          });
         },
         customButtons: {
           custom1: {
