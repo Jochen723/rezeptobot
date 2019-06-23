@@ -24,6 +24,7 @@ if(!isset($_SESSION['userid'])) {
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="icon" href="favicon.ico" />
+    <!--
     <style>
     img {
     vertical-align: middle;
@@ -39,6 +40,7 @@ if(!isset($_SESSION['userid'])) {
     }
 }
     </style>
+  -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -175,6 +177,7 @@ if(!isset($_SESSION['userid'])) {
 
 
   							<button type="button" id="changeTarget" class="btn btn-primary">Save changes</button>
+                <button type="button" id="deleteEvent" class="btn btn-primary">Löschen</button>
   						</form>
   					</div>
   					<div class="modal-footer">

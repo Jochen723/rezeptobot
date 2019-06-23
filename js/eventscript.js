@@ -56,6 +56,25 @@ $( document ).ready(function() {
     },
   });
 
+  $("#deleteEvent").click(function(){
+    var ev = carName;
+
+    var myObj = {
+        "event_id" : ev.id
+    }
+
+    $.ajax({
+      type: "POST",
+      data: {event: JSON.stringify(myObj)},
+      dataType: "text",
+      url: 'db/deleteEvent.php',
+      success: function(php_script_response){
+        $('#calendar').fullCalendar( 'removeEvents', ev.id );
+        $('#changeModal').modal('hide');
+    }
+  });
+});
+
   $("#changeTarget").click(function(){
     newDate = renderDate(document.getElementById('modalDate').value);
     var myObj = {
