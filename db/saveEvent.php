@@ -1,5 +1,7 @@
- <?php
- session_start();
+<?php
+session_start();
+$name = $_SESSION['userid'];
+
  header("Content-Type: text/html; charset=utf-8");
 
  include 'db_verbindung.php';
@@ -20,7 +22,7 @@ $datum = $test->datum;
 $titel = $test->titel;
 $farbe = $test->farbe;
 $rezept_id = $test->rezept_id;
-$user_id = $_SESSION['userid'];
+$user_id = $name;
 
 
 

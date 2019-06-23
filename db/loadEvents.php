@@ -1,5 +1,7 @@
- <?php
- session_start();
+<?php
+session_start();
+$name = $_SESSION['userid'];
+
  header('Content-Type: application/json; charset=utf-8');
 
  include 'db_verbindung.php';
@@ -12,7 +14,7 @@
      die("Connection failed: " . $conn->connect_error);
  }
 
- $sql = 'select * from event WHERE user_id = ' . $_SESSION['userid'];
+ $sql = 'select * from event WHERE user_id = ' . $name;
  $result = $conn->query($sql);
  while($row = $result->fetch_assoc()) {
      $json[] = $row;
@@ -20,6 +22,5 @@
 
  echo json_encode($json, JSON_UNESCAPED_UNICODE);
  $conn->close(); // finally, close the connection
-
 
 ?>
