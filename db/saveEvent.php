@@ -1,4 +1,5 @@
  <?php
+ session_start();
  header("Content-Type: text/html; charset=utf-8");
 
  include 'db_verbindung.php';
@@ -19,10 +20,11 @@ $datum = $test->datum;
 $titel = $test->titel;
 $farbe = $test->farbe;
 $rezept_id = $test->rezept_id;
+$user_id = $_SESSION['userid'];
 
 
 
-$query = "INSERT INTO event (datum,rezept_id,titel,farbe) VALUES ('".$datum."', ".$rezept_id.",'".$titel."','".$farbe."')";
+$query = "INSERT INTO event (datum,rezept_id,titel,farbe,user_id) VALUES ('".$datum."', ".$rezept_id.",'".$titel."','".$farbe."', ".$user_id.")";
 echo $query;
 $conn->query($query);
 
