@@ -154,5 +154,35 @@ if(!isset($_SESSION['userid'])) {
 			</div>
 		</div>
 
+
+    <div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  			<div class="modal-dialog" role="document">
+  				<div class="modal-content">
+  					<div class="modal-header">
+  						<h2>Event ändern</h2>
+  					</div>
+  					<div class="modal-body">
+  						<form>
+  							<div class="form-group">
+                  <h5 id="modalTitel" >Test</H5>
+  								<label>Datum:</label>
+  								<input class="form-control" id="modalDate" name="date" placeholder="MM/DD/YYY" type="text"/>
+  							</div>
+  							<div class="form-group" id="beschreibungDiv">
+
+  								</select>
+  							</div>
+
+
+  							<button type="button" id="changeTarget" class="btn btn-primary">Save changes</button>
+  						</form>
+  					</div>
+  					<div class="modal-footer">
+  						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+
   </body>
 </html>

@@ -19,7 +19,6 @@ $datum = $test->datum;
 $event_id = $test->event_id;
 
 $query = "UPDATE event SET datum = '".$datum."' WHERE event_id = ".$event_id."; ";
-echo $query;
 
 $conn->query($query);
 
