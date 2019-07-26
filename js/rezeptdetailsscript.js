@@ -106,6 +106,70 @@ $('#heutegekochtmodal').modal('hide');
 
   });
 
+  $(".btn-less-ingredients_yield").click(function() {
+
+
+    var anzahlPortionenText1 = document.getElementById('anzahlPortionenmodal').innerText;
+
+    var anzahlPortionenText2 = anzahlPortionenText1.substr(0,anzahlPortionenText1.indexOf(' '));
+    var anzahlPortionenText3 = anzahlPortionenText1.substr(anzahlPortionenText1.indexOf(' '));
+    var integer = parseInt(anzahlPortionenText2, 10);
+    if (integer >1) {
+      integer2 = integer-1;
+      document.getElementById('anzahlPortionenmodal').innerText = integer2 + anzahlPortionenText3;
+
+      var x = document.getElementsByClassName("ingredients");
+      var x22 = x.ingredients;
+
+      var por = document.getElementById("portionen");
+
+      por.removeChild(por.childNodes[3]);
+
+      var pe = document.createElement("p");
+      var x = document.createElement("STRONG");
+      pe.appendChild(x);
+      var i2 = document.createElement("i");
+      i2.classList.add("fa", "fa-users");
+      x.appendChild(i2);
+      var x2 = document.createElement("B");
+      var t = document.createTextNode(" " + integer2 + " " + 'Portionen');
+      x2.appendChild(t);
+      x.appendChild(x2);
+      por.appendChild(pe);
+
+      for (var n = 0; n < x22.childNodes.length; n++) {
+
+        if (undefined !== x22.childNodes[n].id) {
+          var text = x22.childNodes[n].innerHTML;
+          //Die erste Zeichenkette rausfinden
+          var text2 = text.substring(0, text.indexOf(' '));
+
+          //Der Rest des Textes
+          var text3 = text.substring(text.indexOf(' '));
+          //Wenn es eine Nummer ist,
+
+          var value = parseFloat(text2.replace(",", "."));
+
+          if (!Number.isNaN(value)) {
+            zahl = Math.round (value/integer*integer2 * 100) / 100;
+
+            x22.childNodes[n].innerHTML = zahl + ' ' + text3;
+          }
+        }
+
+
+
+
+
+      }
+    }
+
+
+
+
+
+  });
+
   $(".btn-less-yield").click(function() {
 
     var anzahlPortionenText1 = document.getElementById('anzahlPortionenmodal').innerText;
@@ -118,17 +182,67 @@ $('#heutegekochtmodal').modal('hide');
       document.getElementById('anzahlPortionenmodal').innerText = integer2 + anzahlPortionenText3;
     }
 
-    var x = document.getElementsByClassName("modaleZutaten");
-    for (var n = 0; n < x.length; n++) {
-      var text = x[n].innerText;
-      text = text.substring(1);
-      var text2 = text.substring(0, text.indexOf(' '));
-      var text3 = text.substring(text.indexOf(' '));
-      var value = parseFloat(text2.replace(",", "."));
 
-      zahl = Math.round (value/integer*integer2 * 100) / 100;  // 217.43;
-      x[n].innerText = ' '+zahl + ' ' + text3;
-    }
+
+
+
+  });
+
+  $(".btn-more-ingredients_yield").click(function() {
+
+    var anzahlPortionenText1 = document.getElementById('anzahlPortionenmodal').innerText;
+
+    var anzahlPortionenText2 = anzahlPortionenText1.substr(0,anzahlPortionenText1.indexOf(' '));
+    var anzahlPortionenText3 = anzahlPortionenText1.substr(anzahlPortionenText1.indexOf(' '));
+    var integer = parseInt(anzahlPortionenText2, 10);
+      integer2 = integer+1;
+      document.getElementById('anzahlPortionenmodal').innerText = integer2 + anzahlPortionenText3;
+
+
+      var x = document.getElementsByClassName("ingredients");
+      var x22 = x.ingredients;
+
+      var por = document.getElementById("portionen");
+
+      por.removeChild(por.childNodes[3]);
+
+      var pe = document.createElement("p");
+      var x = document.createElement("STRONG");
+      pe.appendChild(x);
+      var i2 = document.createElement("i");
+      i2.classList.add("fa", "fa-users");
+      x.appendChild(i2);
+      var x2 = document.createElement("B");
+      var t = document.createTextNode(" " + integer2 + " " + 'Portionen');
+      x2.appendChild(t);
+      x.appendChild(x2);
+      por.appendChild(pe);
+
+      for (var n = 0; n < x22.childNodes.length; n++) {
+
+        if (undefined !== x22.childNodes[n].id) {
+          var text = x22.childNodes[n].innerHTML;
+          //Die erste Zeichenkette rausfinden
+          var text2 = text.substring(0, text.indexOf(' '));
+
+          //Der Rest des Textes
+          var text3 = text.substring(text.indexOf(' '));
+          //Wenn es eine Nummer ist,
+
+          var value = parseFloat(text2.replace(",", "."));
+
+          if (!Number.isNaN(value)) {
+            zahl = Math.round (value/integer*integer2 * 100) / 100;
+
+            x22.childNodes[n].innerHTML = zahl + ' ' + text3;
+          }
+        }
+
+
+
+
+
+      }
 
 
 

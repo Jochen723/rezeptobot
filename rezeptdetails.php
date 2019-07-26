@@ -107,6 +107,8 @@ if(!isset($_SESSION['userid'])) {
                         <div class="row">
                             <div class="col-lg-6 col-sm-6">
                                 <h3>Zutaten</h3>
+                                <button type="button" class="btn btn-secondary btn-less-ingredients_yield">eine Portion weniger</button>
+                                <button type="button" class="btn btn-secondary btn-more-ingredients_yield">eine Portion mehr</button><br>
                                 <ul id ="ingredients" class="ingredients">
                                 </ul>
                             </div>
