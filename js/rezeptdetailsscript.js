@@ -76,14 +76,15 @@ $('#heutegekochtmodal').modal('hide');
     var jsonObj = [];
 
       var checkboxes = document.getElementsByName('wunderlistboxen');
+      var test = document.getElementsByClassName("modaleZutaten");
       var checkboxesChecked = [];
         // loop over them all
         for (var i=0; i<checkboxes.length; i++) {
            // And stick the checked ones onto an array...
            if (checkboxes[i].checked) {
-             var v = checkboxes[i].value;
-             v = v.substring(0, v.length - 5);
-             v = v.replace('  ',' ');
+             var v = test[i].innerHTML;
+             //v = v.substring(0, v.length - 5);
+             //v = v.replace('  ',' ');
              jsonObj.push(v);
            }
         }
@@ -145,16 +146,15 @@ $('#heutegekochtmodal').modal('hide');
 
 
       var x = document.getElementsByClassName("modaleZutaten");
+
       for (var n = 0; n < x.length; n++) {
         var text = x[n].innerText;
         text = text.substring(1);
         var text2 = text.substring(0, text.indexOf(' '));
         var text3 = text.substring(text.indexOf(' '));
         var value = parseFloat(text2.replace(",", "."));
-        console.log('zu teilende Zahl: ' + value);
 
         zahl = Math.round (value/integer*integer2 * 100) / 100;  // 217.43;
-        console.log(zahl);
         x[n].innerText = ' '+zahl + ' ' + text3;
 
       }
