@@ -35,7 +35,7 @@
               $("#navigation").load("header.html");
               $("#footer").load("footer.html");
             });
-            </script>
+        </script>
     </head>
 
     <body>
