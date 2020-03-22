@@ -21,7 +21,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/styles.min.css" rel="stylesheet">
         <link href="css/select2.min.css" rel="stylesheet">
-        <link href="css/uebersicht.css" rel="stylesheet">
+        <link href="css/masken/uebersicht/uebersicht.css" rel="stylesheet">
 
         <!-- Favicon -->
         <link rel="shortcut icon" href="favicon.ico" />

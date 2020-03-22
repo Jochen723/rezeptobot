@@ -20,7 +20,7 @@ session_destroy();
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/styles.min.css" rel="stylesheet">
         <link href="css/select2.min.css" rel="stylesheet">
-        <link href="css/login.css" rel="stylesheet">
+        <link href="css/masken/login/login.css" rel="stylesheet">
 
         <!-- Favicon -->
         <link rel="shortcut icon" href="favicon.ico" />
