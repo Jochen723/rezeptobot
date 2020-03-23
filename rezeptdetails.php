@@ -85,10 +85,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 col-sm-12">
+                                <!--
                                     <a id="rezeptaendern" href="rezeptaendern.php" class="btn" style="
                                         background-color: #363636;
                                         color: #fff;"> Rezept ändern
                                     </a>
+                                -->
                                     <a id="rezeptaendern" href="rezeptaendern.php"
                                         class="btn" data-toggle="modal" data-target="#wunderlistmodal" style="
                                         background-color: #363636;
