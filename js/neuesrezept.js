@@ -93,8 +93,8 @@ $(document).ready(function(){
 
     //Beim Klick auf speichern
     $(".btn-submit").click(function() {
-        var anzahlPortionen,
-            rezept;
+        var rezept,
+            anzahlPortionen = document.getElementById("anzahlPortionen").value;
 
 
         if ("" === document.getElementById("rezepttitel").value) {
@@ -106,7 +106,7 @@ $(document).ready(function(){
             ermittleZutatenliste();
             ermittleKategorienliste();
 
-            if ("" === document.getElementById("anzahlPortionen").value) {
+            if ("" === anzahlPortionen) {
                 anzahlPortionen = 0;
             }
 
