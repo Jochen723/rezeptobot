@@ -252,7 +252,7 @@ a[data-goto]:hover {
   border-top: 0 hidden transparent;
   /* no top border on first row */ }
 
-/* Day Row (used within the header and the DayGrid)
+/* Day Row (used within the header.html and the DayGrid)
 --------------------------------------------------------------------------------------------------*/
 .fc-row {
   position: relative; }
@@ -713,7 +713,7 @@ NOTE: use percentage font sizes or else old IE chokes
 --------------------------------------------------------------------------------------------------*/
 .fc-popover > .ui-widget-header + .ui-widget-content {
   border-top: 0;
-  /* where they meet, let the header have the border */ }
+  /* where they meet, let the header.html have the border */ }
 
 /* Global Event Styles
 --------------------------------------------------------------------------------------------------*/
@@ -723,7 +723,7 @@ NOTE: use percentage font sizes or else old IE chokes
   /* default TEXT color */
   text-decoration: none;
   /* if <a> has an href */
-  /* undo ui-widget-header bold */
+  /* undo ui-widget-header.html bold */
   font-weight: normal; }
 
 /* TimeGrid axis running down the side (for both the all-day area and the slot area)
