@@ -25,31 +25,30 @@
     
     if (null == $mail) {
         createLog('Email-Adresse wurde nicht übergeben.');
-    }
-    
-    if (null == $pass) {
+       
+    } else if (null == $pass) {
         createLog('Passwort wurde nicht übergeben.');
-    }
-    
-    $e = new Emp();
-
-    createLog('LOGIN ' . $mail);
-    $query = 'SELECT * FROM user WHERE email = \'' . $mail . '\'';
-    createLog($query);
-    
-    $result = $conn->query($query);
-    
-    while($row = $result->fetch_assoc()) {
-        $e->nutzernameVorhanden = true;
-        createLog('Benutzername ' . $mail . ' ist vorhanden.');
+    } else {
+        $e = new Emp();
         
-        if ( password_verify($pass, $row["passwort"])) {
-            $e->passwortKorrekt = true;
-            $_SESSION['userid'] = $row['id'];
-            $_SESSION['mail'] = $row['email'];
-            createLog('Passwort für Benutzername ' . $mail . ' ist korrekt.');
-        } else {
-            createLog('Passwort für Benutzername ' . $mail . ' ist falsch.');
+        createLog('LOGIN ' . $mail);
+        $query = 'SELECT * FROM user WHERE email = \'' . $mail . '\'';
+        createLog($query);
+        
+        $result = $conn->query($query);
+        
+        while($row = $result->fetch_assoc()) {
+            $e->nutzernameVorhanden = true;
+            createLog('Benutzername ' . $mail . ' ist vorhanden.');
+            
+            if ( password_verify($pass, $row["passwort"])) {
+                $e->passwortKorrekt = true;
+                $_SESSION['userid'] = $row['id'];
+                $_SESSION['mail'] = $row['email'];
+                createLog('Passwort für Benutzername ' . $mail . ' ist korrekt.');
+            } else {
+                createLog('Passwort für Benutzername ' . $mail . ' ist falsch.');
+            }
         }
     }
 
