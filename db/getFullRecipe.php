@@ -47,7 +47,6 @@
      $sql = "SELECT * FROM rezept WHERE id = ?";
      $statement = $conn->prepare($sql);
      $statement->bind_param('s', $rezeptId);
-     $statement->execute();
      if (!$statement->execute()) {
          throw new Exception('Execute-Statement failed');
      }
@@ -81,7 +80,6 @@
      $sql = "SELECT * FROM kategorienliste INNER JOIN rezept_kategorienliste ON kategorienliste.id = rezept_kategorienliste.kategorien_id WHERE rezept_id = ?";
      $statement = $conn->prepare($sql);
      $statement->bind_param('s', $rezeptId);
-     $statement->execute();
      if (!$statement->execute()) {
          throw new Exception('Execute-Statement failed');
      }
