@@ -8,6 +8,7 @@
      // Create connection
      $conn = get_db_connection();
      mysqli_set_charset($conn,"utf8");
+     print_r('test');
 
      // Check connection
      if ($conn->connect_error) {
