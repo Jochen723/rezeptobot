@@ -284,6 +284,35 @@ $(document).ready(function(){
             }
 
             var passt = titel.length > 0;
+
+            rezept = {
+                "id": getUrlVariables()["q"],
+                "titel": document.getElementById("rezepttitel").value,
+                "durchfuehrung": document.getElementById("durchfuehrung").value,
+                "anzahlPortionen" : anzahlPortionen,
+                "einheit" : "Portionen",
+                "kochzeit" : document.getElementById("kochzeit").value,
+                "vorbereitungszeit" : document.getElementById("vorbereitungszeit").value,
+                "zutatenliste" : ermittleZutatenliste(),
+                //"kategorienliste" : kategorienliste
+            };
+
+            $.ajax({
+                type:'POST',
+                url:'db/saveChangedRecipe.php',
+                data: {event: JSON.stringify(rezept)},
+                dataType: "json",
+                success:function(data){
+                    window.location.href = "uebersicht.php";
+                },
+                error: function (xhr, txtStatus, errThrown) {
+                    console.log(
+                        "XMLHttpRequest: ", xhr,
+                        " Status:", txtStatus,
+                        " Error:",  errThrown
+                    );
+                },
+            });
         }
     }
 
@@ -402,5 +431,66 @@ $(document).ready(function(){
                 }
             }
         }
+    }
+
+    function ermittleZutatenliste() {
+
+        var zutatenliste = [];
+
+        // Der Container mit den eingegebenen Zutaten
+        let  elems = document.getElementById('sortable').childNodes;
+        let anzahl = null;
+        let zusatz = null;
+        let einheit = null;
+        let zutat = null;
+
+        //Es wird über alle Zutaten iteriert
+        for (let i=0; i<elems.length; i++) {
+            //Wenn der Container, der die Zutaten enthält
+            if (elems[i].id === 'zutatenreihe') {
+                for (let j=0; j<elems[i].childNodes.length; j++) {
+                    if (elems[i].childNodes[j].id === 'zutatenrow') {
+                        for (let k=0; k<elems[i].childNodes[j].childNodes.length; k++) {
+                            if (elems[i].childNodes[j].childNodes[k].id === 'zutatenanzahl') {
+                                for (let l=0; l<elems[i].childNodes[j].childNodes[k].childNodes.length; l++) {
+                                    if (elems[i].childNodes[j].childNodes[k].childNodes[l].id !== undefined && elems[i].childNodes[j].childNodes[k].childNodes[l].id !== "") {
+                                        anzahl = elems[i].childNodes[j].childNodes[k].childNodes[l].id;
+                                    }
+                                }
+                            } else if (elems[i].childNodes[j].childNodes[k].id === "zutateneinheit") {
+                                for (let m=0; m<elems[i].childNodes[j].childNodes[k].childNodes.length; m++) {
+                                    if (elems[i].childNodes[j].childNodes[k].childNodes[m].id !== undefined && elems[i].childNodes[j].childNodes[k].childNodes[m].id !== "") {
+                                        var tmpEinheit = elems[i].childNodes[j].childNodes[k].childNodes[m].id;
+                                        einheit = document.getElementById(tmpEinheit).options[document.getElementById(tmpEinheit).selectedIndex];
+                                    }
+                                }
+                            } else if (elems[i].childNodes[j].childNodes[k].id === "zutatenzutat") {
+                                for (let n=0; n<elems[i].childNodes[j].childNodes[k].childNodes.length; n++) {
+                                    if (elems[i].childNodes[j].childNodes[k].childNodes[n].id !== undefined && elems[i].childNodes[j].childNodes[k].childNodes[n].id !== "") {
+                                        var tmpZutat = elems[i].childNodes[j].childNodes[k].childNodes[n].id;
+                                        zutat = document.getElementById(tmpZutat).options[document.getElementById(tmpZutat).selectedIndex];
+                                    }
+                                }
+                            } else if (elems[i].childNodes[j].childNodes[k].id === "zutatenzusatz") {
+                                for (let o=0; o<elems[i].childNodes[j].childNodes[k].childNodes.length; o++) {
+                                    if (elems[i].childNodes[j].childNodes[k].childNodes[o].id !== undefined && elems[i].childNodes[j].childNodes[k].childNodes[0].id !== "") {
+                                        zusatz = elems[i].childNodes[j].childNodes[k].childNodes[o].id;
+                                    }
+                                }
+                            }
+                        }
+                        var new_obj = {
+                            'anzahl':document.getElementById(anzahl).value,
+                            'einheit':einheit.id,
+                            'zutat': zutat.id,
+                            'zusatz': document.getElementById(zusatz).value
+                        };
+                        zutatenliste.push(new_obj);
+                    }
+                }
+            }
+        }
+
+        return zutatenliste;
     }
 });
