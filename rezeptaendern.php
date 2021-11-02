@@ -19,11 +19,41 @@
         <link rel="shortcut icon" href="favicon.ico" />
         <link rel="icon" href="favicon.ico" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="js/rezeptaendern.js"></script>
+        <script src="js/rezeptaendernscript.js"></script>
     </head>
 
     <body>
-
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container-fluid justify-content-center">
+            <a class="navbar-brand" href="index.php"><i class="fa fa-cutlery" aria-hidden="true"></i>  Rezeptobot</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+                  <span class="navbar-text">
+                      <?php if(isset($_SESSION['mail'])) {echo $_SESSION['mail'];}?>
+                  </span>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="eventkalender.php">Kalender</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="uebersicht.php">Von A - Z</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Logout</a>
+                    </li>
+                    <li class="nav-item btn-submit-recipe">
+                        <a class="nav-link" href="neuesrezept.php"><i class="fa fa-upload" aria-hidden="true"></i> neues Rezept</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
         <!-- Submit Recipe-->
         <div class="submit">
             <div class="title">
