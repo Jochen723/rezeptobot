@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 
     onEntry();
@@ -21,16 +20,16 @@ $(document).ready(function(){
                     erstelleTitel(data);
 
                     //Zutaten
-                    showIngredientsONMASK(data);
+                    erstelleZutatenliste(data);
 
                     //Durchführung
-                    showExecutionONMASK(data);
+                    erstelleDurchfuehrung(data);
 
                     //Rezeptbild
-                    showImageONMASK(data);
+                    erstelleBild(data);
 
                     //Weitere Informationen
-                    showAdditionalInfosONMASK(data);
+                    erstelleZusaetzlicheInformationen(data);
                 }
             },
             error: function (xhr, txtStatus, errThrown) {
@@ -73,7 +72,7 @@ $(document).ready(function(){
         document.getElementById('rezepttitel').innerHTML = data.generalInformations.titel;
     }
 
-    function showIngredientsONMASK(data) {
+    function erstelleZutatenliste(data) {
         var ColorsAvailable = document.getElementById('bodymodal');
 
         for (var i = 0; i < data.ingredients.length; i++) {
@@ -108,8 +107,7 @@ $(document).ready(function(){
         }
     }
 
-    function showExecutionONMASK(data) {
-        var test = data.generalInformations.durchfuehrung;
+    function erstelleDurchfuehrung(data) {
         data.generalInformations.durchfuehrung.replace(/↵/, '<br/>');
         var ol = document.getElementById("zubereitung");
         var li2 = document.createElement("li");
@@ -117,11 +115,11 @@ $(document).ready(function(){
         ol.appendChild(li2);
     }
 
-    function showImageONMASK(data) {
+    function erstelleBild(data) {
         document.getElementById("recipe_image").src=data.generalInformations.bildpfad;
     }
 
-    function showAdditionalInfosONMASK(data) {
+    function erstelleZusaetzlicheInformationen(data) {
         //Portionen
         var por = document.getElementById("portionen");
         var pe = document.createElement("p");
