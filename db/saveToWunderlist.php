@@ -15,7 +15,7 @@ $from = "jonaskortum@googlemail.com";
 $text = "";
 */
 
-$empfaenger = "me@wunderlist.com";
+$empfaenger = "trigger@applet.ifttt.com";
 $betreff = $t;
 $from = "From: Jonas Kortum <jonaskortum@googlemail.com>";
 $text = $t;

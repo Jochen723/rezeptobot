@@ -6740,7 +6740,7 @@ var DayTableMixin = /** @class */ (function (_super) {
     };
     /* Options
     ------------------------------------------------------------------------------------------------------------------*/
-    // Computes a default column header formatting string if `colFormat` is not explicitly defined
+    // Computes a default column header.html formatting string if `colFormat` is not explicitly defined
     DayTableMixin.prototype.computeColHeadFormat = function () {
         // if more than one week row, or if there are a lot of columns with not much space,
         // put just the day numbers will be in each cell
@@ -6871,7 +6871,7 @@ var DayTableMixin = /** @class */ (function (_super) {
         var view = t.view;
         var isDateValid = t.dateProfile.activeUnzonedRange.containsDate(date); // TODO: called too frequently. cache somehow.
         var classNames = [
-            'fc-day-header',
+            'fc-day-header.html',
             view.calendar.theme.getClass('widgetHeader')
         ];
         var innerHtml;
@@ -6884,11 +6884,11 @@ var DayTableMixin = /** @class */ (function (_super) {
         else {
             innerHtml = util_1.htmlEscape(date.format(t.colHeadFormat));
         }
-        // if only one row of days, the classNames on the header can represent the specific days beneath
+        // if only one row of days, the classNames on the header.html can represent the specific days beneath
         if (t.rowCnt === 1) {
             classNames = classNames.concat(
             // includes the day-of-week class
-            // noThemeHighlight=true (don't highlight the header)
+            // noThemeHighlight=true (don't highlight the header.html)
             t.getDayClasses(date, true));
         }
         else {
@@ -7784,7 +7784,7 @@ var DayGrid = /** @class */ (function (_super) {
         var topEl; // the element we want to match the top coordinate of
         var options;
         if (this.rowCnt === 1) {
-            topEl = view.el; // will cause the popover to cover any sort of header
+            topEl = view.el; // will cause the popover to cover any sort of header.html
         }
         else {
             topEl = this.rowEls.eq(row); // will align with top of row
@@ -7827,7 +7827,7 @@ var DayGrid = /** @class */ (function (_super) {
         var view = this.view;
         var theme = view.calendar.theme;
         var title = this.getCellDate(row, col).format(this.opt('dayPopoverFormat'));
-        var content = $('<div class="fc-header ' + theme.getClass('popoverHeader') + '">' +
+        var content = $('<div class="fc-header.html ' + theme.getClass('popoverHeader') + '">' +
             '<span class="fc-close ' + theme.getIconClass('close') + '"></span>' +
             '<span class="fc-title">' +
             util_1.htmlEscape(title) +
@@ -8104,7 +8104,7 @@ function makeDayGridSubclass(SuperClass) {
             _this.colWeekNumbersVisible = false; // display week numbers along the side?
             return _this;
         }
-        // Generates the HTML that will go before the day-of week header cells
+        // Generates the HTML that will go before the day-of week header.html cells
         SubClass.prototype.renderHeadIntroHtml = function () {
             var view = this.view;
             if (this.colWeekNumbersVisible) {
@@ -9187,7 +9187,7 @@ var StandardTheme = /** @class */ (function (_super) {
 exports.default = StandardTheme;
 StandardTheme.prototype.classes = {
     widget: 'fc-unthemed',
-    widgetHeader: 'fc-widget-header',
+    widgetHeader: 'fc-widget-header.html',
     widgetContent: 'fc-widget-content',
     buttonGroup: 'fc-button-group',
     button: 'fc-button',
@@ -9198,10 +9198,10 @@ StandardTheme.prototype.classes = {
     stateDisabled: 'fc-state-disabled',
     stateHover: 'fc-state-hover',
     stateDown: 'fc-state-down',
-    popoverHeader: 'fc-widget-header',
+    popoverHeader: 'fc-widget-header.html',
     popoverContent: 'fc-widget-content',
     // day grid
-    headerRow: 'fc-widget-header',
+    headerRow: 'fc-widget-header.html',
     dayRow: 'fc-widget-content',
     // list view
     listView: 'fc-widget-content'
@@ -9236,7 +9236,7 @@ var JqueryUiTheme = /** @class */ (function (_super) {
 exports.default = JqueryUiTheme;
 JqueryUiTheme.prototype.classes = {
     widget: 'ui-widget',
-    widgetHeader: 'ui-widget-header',
+    widgetHeader: 'ui-widget-header.html',
     widgetContent: 'ui-widget-content',
     buttonGroup: 'fc-button-group',
     button: 'ui-button',
@@ -9248,10 +9248,10 @@ JqueryUiTheme.prototype.classes = {
     stateHover: 'ui-state-hover',
     stateDown: 'ui-state-down',
     today: 'ui-state-highlight',
-    popoverHeader: 'ui-widget-header',
+    popoverHeader: 'ui-widget-header.html',
     popoverContent: 'ui-widget-content',
     // day grid
-    headerRow: 'ui-widget-header',
+    headerRow: 'ui-widget-header.html',
     dayRow: 'ui-widget-content',
     // list view
     listView: 'ui-widget-content'
@@ -11065,7 +11065,7 @@ var Calendar = /** @class */ (function () {
     };
     Calendar.prototype.computeHeaderOptions = function () {
         return {
-            extraClasses: 'fc-header-toolbar',
+            extraClasses: 'fc-header.html-toolbar',
             layout: this.opt('header')
         };
     };
@@ -12582,7 +12582,7 @@ var AgendaView = /** @class */ (function (_super) {
             this.scroller.setHeight(scrollerHeight);
             scrollbarWidths = this.scroller.getScrollbarWidths();
             if (scrollbarWidths.left || scrollbarWidths.right) { // using scrollbars?
-                // make the all-day and header rows lines up
+                // make the all-day and header.html rows lines up
                 util_1.compensateScroll(noScrollRowEls, scrollbarWidths);
                 // the scrollbar compensation might have changed text flow, which might affect height, so recalculate
                 // and reapply the desired height to the scroller.
@@ -12694,7 +12694,7 @@ AgendaView.prototype.timeGridClass = TimeGrid_1.default;
 AgendaView.prototype.dayGridClass = DayGrid_1.default;
 // Will customize the rendering behavior of the AgendaView's timeGrid
 agendaTimeGridMethods = {
-    // Generates the HTML that will go before the day-of week header cells
+    // Generates the HTML that will go before the day-of week header.html cells
     renderHeadIntroHtml: function () {
         var view = this.view;
         var calendar = view.calendar;
@@ -14202,7 +14202,7 @@ var ListView = /** @class */ (function (_super) {
         for (dayIndex = 0; dayIndex < segsByDay.length; dayIndex++) {
             daySegs = segsByDay[dayIndex];
             if (daySegs) { // sparse array, so might be undefined
-                // append a day header
+                // append a day header.html
                 tbodyEl.append(this.dayHeaderHtml(this.dayDates[dayIndex]));
                 this.eventRenderer.sortEventSegs(daySegs);
                 for (i = 0; i < daySegs.length; i++) {
@@ -14702,7 +14702,7 @@ var OptionsManager = /** @class */ (function (_super) {
                 return;
             }
         }
-        // catch-all. rerender the header and footer and rebuild/rerender the current view
+        // catch-all. rerender the header.html and footer and rebuild/rerender the current view
         this._calendar.renderHeader();
         this._calendar.renderFooter();
         // even non-current views will be affected by this option change. do before rerender
@@ -15013,7 +15013,7 @@ Bootstrap4Theme.prototype.classes = {
     stateDisabled: 'disabled',
     today: 'alert alert-info',
     popover: 'card card-primary',
-    popoverHeader: 'card-header',
+    popoverHeader: 'card-header.html',
     popoverContent: 'card-body',
     // day grid
     // for left/right border color when border is inset from edges (all-day in agenda view)
@@ -15109,7 +15109,7 @@ ViewRegistry_1.defineView('listDay', {
     type: 'list',
     duration: { days: 1 },
     defaults: {
-        listDayFormat: 'dddd' // day-of-week is all we need. full date is probably in header
+        listDayFormat: 'dddd' // day-of-week is all we need. full date is probably in header.html
     }
 });
 ViewRegistry_1.defineView('listWeek', {

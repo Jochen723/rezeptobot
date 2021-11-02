@@ -1,0 +1,22 @@
+2021-11-01 08:08:41 LOGIN jonaskortum@googlemail.com
+2021-11-01 08:08:41 SELECT * FROM user WHERE email = 'jonaskortum@googlemail.com'
+2021-11-01 08:08:41 Benutzername jonaskortum@googlemail.com ist vorhanden.
+2021-11-01 08:08:41 Passwort für Benutzername jonaskortum@googlemail.com ist korrekt.
+2021-11-01 08:50:25 select * from kategorienliste ORDER BY id ASC
+2021-11-01 08:59:28 select * from kategorienliste ORDER BY id ASC
+2021-11-01 09:20:25 select * from kategorienliste ORDER BY id ASC
+2021-11-01 09:37:32 select * from kategorienliste ORDER BY id ASC
+2021-11-01 10:02:57 LOGIN jonaskortum@googlemail.com
+2021-11-01 10:02:57 SELECT * FROM user WHERE email = 'jonaskortum@googlemail.com'
+2021-11-01 10:02:57 Benutzername jonaskortum@googlemail.com ist vorhanden.
+2021-11-01 10:02:57 Passwort für Benutzername jonaskortum@googlemail.com ist korrekt.
+2021-11-01 10:43:21 select * from kategorienliste ORDER BY id ASC
+2021-11-01 10:43:29 select * from kategorienliste ORDER BY id ASC
+2021-11-01 10:47:13 select * from kategorienliste ORDER BY id ASC
+2021-11-01 10:47:14 SELECT rezept.titel, rezept.id, rezept.bildpfad FROM `rezept_kategorienliste` AS one INNER JOIN rezept as rezept ON one.rezept_id = rezept.id WHERE kategorien_id = 1
+2021-11-01 11:38:52 select * from kategorienliste ORDER BY id ASC
+2021-11-01 11:58:41 LOGIN Jonaskortum@googlemail.com
+2021-11-01 11:58:41 SELECT * FROM user WHERE email = 'Jonaskortum@googlemail.com'
+2021-11-01 11:58:41 Benutzername Jonaskortum@googlemail.com ist vorhanden.
+2021-11-01 11:58:41 Passwort für Benutzername Jonaskortum@googlemail.com ist korrekt.
+2021-11-01 12:24:20 select * from kategorienliste ORDER BY id ASC
