@@ -28,6 +28,15 @@ if(!isset($_SESSION['userid'])) {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <script src="js/rezeptdetailsscript.js"></script>
     <script>
+
+        function ermittleLinkZuRezeptAendern() {
+            var vars = {};
+            window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                vars[key] = value;
+            });
+            window.location.href = "rezeptaendern.php?q=" + vars["q"];
+        }
+
         $(document).ready(function(){
             var date_input=$('input[name="date"]'); //our date input has the name "date"
             var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
@@ -113,7 +122,7 @@ if(!isset($_SESSION['userid'])) {
                           </div>
                           <div class="row">
                               <div class="col-lg-12 col-sm-12">
-                                  <a id="rezeptaendern" href="rezeptaendern.php" class="btn" style="
+                                  <a id="rezeptaendern" onclick="ermittleLinkZuRezeptAendern();" class="btn" style="
                                   background-color: #363636;
                                   color: #fff;"> Rezept ändern
                                   </a>
