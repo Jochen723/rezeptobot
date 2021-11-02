@@ -69,18 +69,25 @@ $(document).ready(function(){
 
     function erstelleZutatenliste(data) {
         if (data.ingredients.length == 0) {
-            befuelleEinzigeLeereZutatenzeile();
+            befuelleEinzigeLeereZutatenzeile('zutatSelect1', 'einheitSelect1');
         } else {
             for (var i = 0; i < data.ingredients.length; i++) {
                 var idZutat = "zutatSelect" + (i+1);
                 var idEinheit = "einheitSelect" + (i+1);
                 var idAnzahl = "anzahlSelect" + (i+1);
                 var idZusatz = "zusatzSelect" + (i+1);
+
+                befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl, data.ingredients[i].zutatenliste_id);
+                //belegeZutatenlisteVor(idZutat, data.ingredients[i].zutatenliste_id, data.ingredients[i].zutat);
+
                 if (i == 0) {
-                    belegeKompletteZutatenzeileVor(data, i, idZutat, idEinheit, idAnzahl);
+                    befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl, data.ingredients[i].zutatenliste_id);
+                    //belegeZutatenlisteVor(idZutat, data.ingredients[i].zutatenliste_id, data.ingredients[i].zutat);
+                    //belegeKompletteZutatenzeileVor(data, i, idZutat, idEinheit, idAnzahl);
                 } else {
                     erweitereZutatenliste(idAnzahl, idEinheit, idZutat, idZusatz);
-                    belegeKompletteZutatenzeileVor(data, i, idZutat, idEinheit, idAnzahl);
+                    befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl, data.ingredients[i].zutatenliste_id);
+                    //belegeKompletteZutatenzeileVor(data, i, idZutat, idEinheit, idAnzahl);
                 }
             }
         }
@@ -99,8 +106,8 @@ $(document).ready(function(){
 
     function belegeKompletteZutatenzeileVor(data, i, idZutat, idEinheit, idAnzahl) {
         belegeZutatenlisteVor(idZutat, data.ingredients[i].zutatenliste_id, data.ingredients[i].zutat);
-        belegeZutatenEinheitenlisteVor(idEinheit, data.ingredients[i].einheit_id, data.ingredients[i].einheit);
-        belegeZutatenAnzahllisteVor(idAnzahl, data.ingredients[i].anzahl);
+        //belegeZutatenEinheitenlisteVor(idEinheit, data.ingredients[i].einheit_id, data.ingredients[i].einheit);
+        //belegeZutatenAnzahllisteVor(idAnzahl, data.ingredients[i].anzahl);
     }
 
     function befuelleEinzigeLeereKategorienliste() {
@@ -151,20 +158,25 @@ $(document).ready(function(){
         </div>');
     }
 
-    function befuelleEinzigeLeereZutatenzeile() {
+    function befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, test, vorbelegungId) {
         $.ajax({
             type:'GET',
             url:'db/getIngredientList.php',
             dataType: "json",
 
             success:function(data){
-                var x = document.getElementById("zutatSelect1");
+                var x = document.getElementById(idZutat);
                 for (var i = 0; i < data.length; i++) {
                     var option = document.createElement("option");
                     option.text = data[i].zutat;
                     option.id = data[i].id;
                     x.add(option);
                 }
+                if (vorbelegungId) {
+                    document.getElementById(idZutat).selectedIndex = vorbelegungId;
+                }
+
+
             },
             error: function (request, error) {
                 console.log(arguments);
@@ -176,7 +188,7 @@ $(document).ready(function(){
             url:'db/getUnitList.php',
             dataType: "json",
             success:function(data){
-                var x = document.getElementById("einheitSelect1");
+                var x = document.getElementById(idEinheit);
                 for (var i = 0; i < data.length; i++) {
                     var option = document.createElement("option");
                     option.text = data[i].einheit;
@@ -257,14 +269,6 @@ $(document).ready(function(){
             document.getElementById(idAnzahl).value = zahl;
         }
 
-    }
-
-    function belegeZutatenlisteVor(idZutat, zutatId, zutattext) {
-        var x = document.getElementById(idZutat);
-        var option = document.createElement("option");
-        option.text = zutattext;
-        option.id = zutatId;
-        x.add(option);
     }
 
     function onRezeptaenderungSpeichern() {
