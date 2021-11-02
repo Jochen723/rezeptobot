@@ -132,6 +132,10 @@ if(!isset($_SESSION['userid'])) {
                                         background-color: #363636;
                                         color: #fff;"> Rezept planen
                                   </a>
+                                  <a id="rezeptaendern" href="uebersicht.php" class="btn btn-delete" style="
+                                  background-color: #363636;
+                                  color: #fff;"> Rezept löschen
+                                  </a>
                                   <div class="modal fade" id="wunderlistmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                       <div class="modal-dialog" role="document">
                                           <div class="modal-content">

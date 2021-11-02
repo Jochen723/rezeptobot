@@ -18,7 +18,7 @@ $(document).ready(function(){
                     alert(data.reason);
                 } else {
                     //Rezepttitel
-                    showTitleONMASK(data);
+                    erstelleTitel(data);
 
                     //Zutaten
                     showIngredientsONMASK(data);
@@ -31,30 +31,19 @@ $(document).ready(function(){
 
                     //Weitere Informationen
                     showAdditionalInfosONMASK(data);
-
-                    /*
-                    //Anzahl Portionen
-                    //var anzahlPortionenText = document.getElementById('anzahlPortionenmodal');
-                    //anzahlPortionenText.innerText = data.response[0][0].anzahlPortionen + " " + data.response[0][0].einheit;
-
-
-                    for (var j = 0; j < data.response[2].length; j++){
-                        var por4 = document.getElementById("tag");
-                        a2 = document.createElement('a');
-                        a2.href =  '#'; // Insted of calling setAttribute
-                        a2.innerHTML = data.response[2][j].kategorie;
-                        por4.appendChild(a2);// <a>INNER_TEXT</a>
-                    }*/
                 }
             },
-            error: function (data) {
-                alert("Es ist ein Fehler aufgetreten.");
+            error: function (xhr, txtStatus, errThrown) {
+                console.log(
+                    "XMLHttpRequest: ", xhr,
+                    " Status:", txtStatus,
+                    " Error:",  errThrown
+                );
             },
         });
     }
 
     function registerButtons() {
-        //Button "Rezept planen"
         $(".btn-geplant").click(function() {
             onRezeptPlanen();
         });
@@ -75,27 +64,28 @@ $(document).ready(function(){
             onMoreButton();
         });
 
-        var aendernButton = document.getElementById('rezeptaendern');
-        aendernButton.href =  'rezeptaendern.php?q='+number; // Insted of calling setAttribute
+        $(".btn-delete").click(function() {
+            onDelete();
+        });
     }
 
-    function showTitleONMASK(data) {
-        document.getElementById('rezepttitel').innerHTML = data.response[0][0].titel;
+    function erstelleTitel(data) {
+        document.getElementById('rezepttitel').innerHTML = data.generalInformations.titel;
     }
 
     function showIngredientsONMASK(data) {
         var ColorsAvailable = document.getElementById('bodymodal');
 
-        for (var i = 0; i < data.response[1].length; i++) {
+        for (var i = 0; i < data.ingredients.length; i++) {
 
             var ul = document.getElementById("ingredients");
             var li = document.createElement("li");
-            var test = data.response[1][i].anzahl == null ? '' : data.response[1][i].anzahl;
+            var test = data.ingredients[i].anzahl == null ? '' : data.ingredients[i].anzahl;
             test = test.replace(".0" , "");
             test = test.replace("." , ",")
-            var zusatz = data.response[1][i].zusatz
-            var inhalt = test + ' ' + data.response[1][i].einheit + ' ' + data.response[1][i].zutat;
-            if (data.response[1][i].zusatz !== null && data.response[1][i].zusatz.length > 0 && data.response[1][i].zusatz !== "null") {
+            var zusatz = data.ingredients[i].zusatz
+            var inhalt = test + ' ' + data.ingredients[i].einheit + ' ' + data.ingredients[i].zutat;
+            if (data.ingredients[i].zusatz !== null && data.ingredients[i].zusatz.length > 0 && data.ingredients[i].zusatz !== "null") {
                 inhalt +=  ' (' + zusatz+')';
             }
 
@@ -119,16 +109,16 @@ $(document).ready(function(){
     }
 
     function showExecutionONMASK(data) {
-        var test = data.response[0][0].durchfuehrung;
-        data.response[0][0].durchfuehrung.replace(/↵/, '<br/>');
+        var test = data.generalInformations.durchfuehrung;
+        data.generalInformations.durchfuehrung.replace(/↵/, '<br/>');
         var ol = document.getElementById("zubereitung");
         var li2 = document.createElement("li");
-        li2.appendChild(document.createTextNode(data.response[0][0].durchfuehrung));
+        li2.appendChild(document.createTextNode(data.generalInformations.durchfuehrung));
         ol.appendChild(li2);
     }
 
     function showImageONMASK(data) {
-        document.getElementById("recipe_image").src=data.response[0][0].bildpfad;
+        document.getElementById("recipe_image").src=data.generalInformations.bildpfad;
     }
 
     function showAdditionalInfosONMASK(data) {
@@ -141,7 +131,7 @@ $(document).ready(function(){
         i2.classList.add("fa", "fa-users");
         x.appendChild(i2);
         var x2 = document.createElement("B");
-        var t = document.createTextNode(" " + data.response[0][0].anzahlPortionen + " " + data.response[0][0].einheit);
+        var t = document.createTextNode(" " + data.generalInformations.anzahlPortionen + " " + data.generalInformations.einheit);
         x2.appendChild(t);
         x.appendChild(x2);
         por.appendChild(pe);
@@ -154,7 +144,7 @@ $(document).ready(function(){
         i3.classList.add("fa", "fa-clock-o");
         x2.appendChild(i3);
         var x3 = document.createElement("B");
-        var t2 = document.createTextNode(" " + data.response[0][0].vorbereitungszeit + " Minuten");
+        var t2 = document.createTextNode(" " + data.generalInformations.vorbereitungszeit + " Minuten");
         x3.appendChild(t2);
         x2.appendChild(x3);
         por2.appendChild(pe2);
@@ -168,7 +158,7 @@ $(document).ready(function(){
         i4.classList.add("fa", "fa-clock-o");
         x3.appendChild(i4);
         var x4 = document.createElement("B");
-        var t3 = document.createTextNode(" " + data.response[0][0].kochzeit + " Minuten");
+        var t3 = document.createTextNode(" " + data.generalInformations.kochzeit + " Minuten");
         x4.appendChild(t3);
         x3.appendChild(x4);
         por3.appendChild(pe3);
@@ -306,6 +296,42 @@ $(document).ready(function(){
             zahl = Math.round (value/integer*integer2 * 100) / 100;  // 217.43;
             x[n].innerText = ' '+zahl + ' ' + text3;
         }
+    }
+
+    function onDelete() {
+        var number = getUrlVariables()["q"];
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = mm + '/' + dd + '/' + yyyy;
+        var myObj = {
+            "datum": yyyy+'-'+mm+'-'+dd,
+            "titel" : document.getElementById('rezepttitel').innerHTML,
+            "farbe" : "#00cc99",
+            "rezept_id" : number
+        }
+
+
+        $.ajax({
+            type: "POST",
+            data: {
+                'rezeptId': getUrlVariables()["q"]
+            },
+            dataType: "json",
+            url: 'db/deleteRecipe.php',
+            success: function(php_script_response){
+                alert("deleted")
+            },
+            error: function (xhr, txtStatus, errThrown) {
+                console.log(
+                    "XMLHttpRequest: ", xhr,
+                    " Status:", txtStatus,
+                    " Error:",  errThrown
+                );
+            },
+        });
     }
 
     function getUrlVariables() {
