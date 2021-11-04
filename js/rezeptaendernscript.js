@@ -77,17 +77,15 @@ $(document).ready(function(){
                 var idAnzahl = "anzahlSelect" + (i+1);
                 var idZusatz = "zusatzSelect" + (i+1);
 
-                befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl, data.ingredients[i].zutatenliste_id);
-                //belegeZutatenlisteVor(idZutat, data.ingredients[i].zutatenliste_id, data.ingredients[i].zutat);
-
                 if (i == 0) {
-                    befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl, data.ingredients[i].zutatenliste_id);
-                    //belegeZutatenlisteVor(idZutat, data.ingredients[i].zutatenliste_id, data.ingredients[i].zutat);
-                    //belegeKompletteZutatenzeileVor(data, i, idZutat, idEinheit, idAnzahl);
+                    befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl,
+                      data.ingredients[i].zutatenliste_id, data.ingredients[i].einheit_id,
+                      data.ingredients[i].anzahl);
                 } else {
                     erweitereZutatenliste(idAnzahl, idEinheit, idZutat, idZusatz);
-                    befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl, data.ingredients[i].zutatenliste_id);
-                    //belegeKompletteZutatenzeileVor(data, i, idZutat, idEinheit, idAnzahl);
+                    befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl,
+                      data.ingredients[i].zutatenliste_id, data.ingredients[i].einheit_id,
+                      data.ingredients[i].anzahl);
                 }
             }
         }
@@ -158,7 +156,7 @@ $(document).ready(function(){
         </div>');
     }
 
-    function befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, test, vorbelegungId) {
+    function befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, test, vorbelegungId, vorbelegung2, vorbelegung3) {
         $.ajax({
             type:'GET',
             url:'db/getIngredientList.php',
@@ -170,13 +168,12 @@ $(document).ready(function(){
                     var option = document.createElement("option");
                     option.text = data[i].zutat;
                     option.id = data[i].id;
+                    if (data[i].id == vorbelegungId) {
+                      option.selected = 'selected';
+
+                    }
                     x.add(option);
                 }
-                if (vorbelegungId) {
-                    document.getElementById(idZutat).selectedIndex = vorbelegungId;
-                }
-
-
             },
             error: function (request, error) {
                 console.log(arguments);
@@ -193,6 +190,10 @@ $(document).ready(function(){
                     var option = document.createElement("option");
                     option.text = data[i].einheit;
                     option.id = data[i].id;
+                    if (data[i].id == vorbelegung2) {
+                      option.selected = 'selected';
+
+                    }
                     x.add(option);
                 }
             },
@@ -201,6 +202,8 @@ $(document).ready(function(){
                 alert(" Can't do because: " + error);
             },
         });
+
+        belegeZutatenAnzahllisteVor(test, vorbelegung3);
     }
 
     function erweitereZutatenliste(idAnzahl, idEinheit, idZutat, idZusatz) {
