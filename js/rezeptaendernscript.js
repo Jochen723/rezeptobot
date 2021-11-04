@@ -78,14 +78,14 @@ $(document).ready(function(){
                 var idZusatz = "zusatzSelect" + (i+1);
 
                 if (i == 0) {
-                    befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl,
+                    befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl, idZusatz,
                       data.ingredients[i].zutatenliste_id, data.ingredients[i].einheit_id,
-                      data.ingredients[i].anzahl);
+                      data.ingredients[i].anzahl, data.ingredients[i].zusatz);
                 } else {
                     erweitereZutatenliste(idAnzahl, idEinheit, idZutat, idZusatz);
-                    befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl,
+                    befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, idAnzahl,idZusatz,
                       data.ingredients[i].zutatenliste_id, data.ingredients[i].einheit_id,
-                      data.ingredients[i].anzahl);
+                      data.ingredients[i].anzahl, data.ingredients[i].zusatz);
                 }
             }
         }
@@ -156,7 +156,7 @@ $(document).ready(function(){
         </div>');
     }
 
-    function befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, test, vorbelegungId, vorbelegung2, vorbelegung3) {
+    function befuelleEinzigeLeereZutatenzeile(idZutat, idEinheit, test, idZusatz, vorbelegungId, vorbelegung2, vorbelegung3, zusatztext) {
         $.ajax({
             type:'GET',
             url:'db/getIngredientList.php',
@@ -173,6 +173,10 @@ $(document).ready(function(){
 
                     }
                     x.add(option);
+
+                    if (idZusatz) {
+                        document.getElementById(idZusatz).value = zusatztext;
+                    }
                 }
             },
             error: function (request, error) {
