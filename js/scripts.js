@@ -58,12 +58,24 @@ var idKategorie = "kategorieSelect"+zahl2;
 
     $(".btn-light").click(function() {
 
-      var idZutat = "zutatSelect"+zahl;
-      var idEinheit = "einheitSelect"+zahl;
-      var idAnzahl = "anzahlSelect"+zahl;
-      var idZusatz = "zusatzSelect"+zahl;
+        var z = 1;
+        var idZutattest = "zutatSelect"+z;
+        while (document.getElementById(idZutattest) !== null) {
+            z++;
+            var idZutattest = "zutatSelect"+z;
+        }
+
+
+      var idZutat = "zutatSelect"+z;
+      var idEinheit = "einheitSelect"+z;
+      var idAnzahl = "anzahlSelect"+z;
+      var idZusatz = "zusatzSelect"+z;
 
         event.preventDefault();
+
+
+        document.getElementById('xx') !== null
+
         $("#sortable").append('<div id="zutatenreihe" class="box ui-sortable-handle">\
                     <div id="zutatenrow" class="row">\
                       <div class="col-lg-1 col-sm-1">\
