@@ -305,7 +305,7 @@ $(document).ready(function(){
                 "kochzeit" : document.getElementById("kochzeit").value,
                 "vorbereitungszeit" : document.getElementById("vorbereitungszeit").value,
                 "zutatenliste" : ermittleZutatenliste(),
-                //"kategorienliste" : kategorienliste
+                "kategorienliste" : ermittleKategorienliste()
             };
 
             $.ajax({
@@ -503,5 +503,47 @@ $(document).ready(function(){
         }
 
         return zutatenliste;
+    }
+
+    function ermittleKategorienliste() {
+
+        var kategorienliste = [];
+
+        let elems22 = document.getElementById('sortable2').childNodes;
+        let elems23 = null;
+        let elems24 = null;
+        let elems25 = null;
+        let varKategorie = null;
+
+        for (let i2=0; i2<elems22.length; i2++) {
+            if (elems22[i2].id === "kategoriereihe") {
+                elems23 = elems22[i2].childNodes;
+                for (let j3=0; j3<elems23.length; j3++) {
+                    if (elems23[j3].id === "kategorierow") {
+                        elems24 = elems23[j3].childNodes;
+                        for (let k2=0; k2<elems24.length; k2++) {
+                            if (elems24[k2].id === "kategorieinstanz") {
+                                elems25 = elems24[k2].childNodes;
+                                for (let l2=0; l2<elems25.length; l2++) {
+                                    if (elems25[l2].id !== undefined && elems25[l2].id !== "") {
+                                        varKategorie = elems25[l2].id;
+                                        var selected = document.getElementById(varKategorie);
+                                        var opt5 = selected.options[selected.selectedIndex];
+                                        var new_obj2 = {
+                                            'id':opt5.id,
+
+                                        };
+
+                                        kategorienliste.push(new_obj2);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return kategorienliste;
     }
 });

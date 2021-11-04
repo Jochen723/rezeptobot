@@ -10,6 +10,7 @@ try {
 
     setChangedGeneralInformations($test, $conn);
     setChangedIngridients($test, $conn);
+    setChangedCategories($test, $conn);
 
     echo json_encode(array(
         'success' => true), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
@@ -61,6 +62,29 @@ foreach ($test->zutatenliste as $zutat) {
     $statement = $conn->prepare($sql);
     $statement->execute($data);
 }
+
+
+
+
+}
+
+function setChangedCategories($test, $conn) {
+    $statement = $conn->prepare("DELETE FROM rezept_kategorienliste WHERE rezept_id = ?");
+    $statement->execute(array($test->id));
+
+    foreach ($test->kategorienliste as $kategorie) {
+
+        $data = [
+            'rezept_id' => (int) $test->id,
+            'kategorien_id' => (int) $kategorie->id
+        ];
+
+
+        $sql = "INSERT INTO rezept_kategorienliste (rezept_id, kategorien_id) VALUES (:rezept_id, :kategorien_id)";
+        $statement = $conn->prepare($sql);
+        $statement->execute($data);
+    }
+
 
 
 
