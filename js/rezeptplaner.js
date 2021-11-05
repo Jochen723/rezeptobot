@@ -131,18 +131,25 @@ $( document ).ready(function() {
             url: 'db/getRecipeFromEvent.php',
             success: function(data) {
 
-                document.getElementById('modaltitellink').innerText = '';
-                document.getElementById('modaltitellink').href = '';
-                document.getElementById('modalImage').removeAttribute('src');
+                if(!data.success) {
+                    alert(data.reason);
+                } else {
+                    document.getElementById('modaltitellink').innerText = '';
+                    document.getElementById('modaltitellink').href = '';
 
-                for (var i = 0; i < data.length; i++) {
-                    document.getElementById('modalDate').value=renderDate2(data[i].datum);
-                    document.getElementById('modaltitellink').innerText = data[i].titel;
-                    document.getElementById('modaltitellink').href = 'rezeptdetails.php?q='+data[i].id;
-                    document.getElementById('modalDate').name = data[i].event_id;
-                    document.getElementById('modalImage').src = data[i].bildpfad;
+                    document.getElementById('modalDate').value=renderDate2(data.event.datum);
+                    document.getElementById('modaltitellink').innerText = data.recipe.titel ? data.recipe.titel : data.event.titel;
+                    document.getElementById('modaltitellink').href = data.recipe.id ? 'rezeptdetails.php?q='+data.recipe.id : '';
+                    document.getElementById('modalDate').name = data.event.event_id;
+                    if (data.recipe.bildpfad) {
+                        document.getElementById('modalImage').src = data.recipe.bildpfad;
+                    } else {
+                        document.getElementById('modalImage').removeAttribute('src');
+                    }
+                    $("#changeModal").modal();
                 }
-                $("#changeModal").modal();
+
+
             },
             error: function (xhr, txtStatus, errThrown) {
                 console.log(
@@ -262,7 +269,11 @@ $( document ).ready(function() {
         return res[2] + '-' + res[1] + '-' + res[0];
     }
     function renderDate2(date) {
-        var res = date.split("-");
-        return res[1] + '/' + res[2] + '/' + res[0];
+        if (date) {
+            var res = date.split("-");
+            return res[1] + '/' + res[2] + '/' + res[0];
+        }
+        return '';
+
     }
 });

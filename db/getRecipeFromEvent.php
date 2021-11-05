@@ -1,29 +1,53 @@
 <?php
-session_start();
-$name = $_SESSION['userid'];
+header("Content-type: application/json; charset=utf-8");
+include 'db_verbindung_pdo.php';
 
- header('Content-Type: application/json; charset=utf-8');
+try {
+    // Create connection
+    $conn = get_db_connection();
 
- include 'db_verbindung.php';
+    if (empty($_GET['event_id'])) { //RezeptId cannot be empty
+        throw new Exception('Es wurde keine Event-ID übergeben.');
+    }
 
- // Create connection
- $conn = get_db_connection();
- mysqli_set_charset($conn,"utf8");
- // Check connection
- if ($conn->connect_error) {
-     die("Connection failed: " . $conn->connect_error);
- }
-$json = [];
+    $eventId= $_GET['event_id'];
+    $responseEvent = array();
+    $responseRezept = array();
 
-$appid = $_GET['event_id'];
+    $sql = 'SELECT * FROM event WHERE event_id = ?';
 
- $sql = 'SELECT event.datum, rezept.titel, event.event_id, rezept.bildpfad, rezept.id FROM event as event INNER JOIN rezept as rezept ON event.rezept_id = rezept.id WHERE event.event_id = ' . $appid;
- $result = $conn->query($sql);
- while($row = $result->fetch_assoc()) {
-     $json[] = $row;
- }
+    $statement = $conn->prepare($sql);
+    if ($statement->execute(array((int)$eventId))) {
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC))  {
+            $responseEvent = $row;
+        }
+    } else {
+        throw new Exception($statement->errorInfo());
+    }
 
- echo json_encode($json, JSON_UNESCAPED_UNICODE);
- $conn->close(); // finally, close the connection
+    if (strcmp($responseEvent['rezept_id'], '0') !== 0) {
+        $sql2 = 'SELECT id, titel, bildpfad FROM rezept WHERE id = ?';
+        $statement2 = $conn->prepare($sql2);
+        $test2 = (int)$responseEvent['rezept_id'];
+        if ($statement2->execute(array($test2))) {
+            while ($row2 = $statement2->fetch(PDO::FETCH_ASSOC))  {
+                $responseRezept = $row2;
+            }
+        } else {
+            throw new Exception($statement2->errorInfo());
+        }
 
+    }
+
+    echo json_encode(array(
+        'event' => $responseEvent,
+        'recipe' => $responseRezept,
+        'success' => true), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+
+} catch (Exception $ex){
+    echo json_encode(array(
+        'success' => false,
+        'reason'  => $ex->getMessage(),
+    ));
+}
 ?>
