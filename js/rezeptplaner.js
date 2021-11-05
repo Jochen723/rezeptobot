@@ -1,67 +1,64 @@
-function renderDate(date) {
-    var res = date.split("/");
-    return res[2] + '-' + res[0] + '-' + res[1];
-}
-function renderDate2(date) {
-    var res = date.split("-");
-    return res[1] + '/' + res[2] + '/' + res[0];
-}
-
-var carName = "Volvo";
-var newDate = "";
-
 $( document ).ready(function() {
-    var ttt = [];
-    var event22 = 'test';
 
-    $.ajax({
-        type:'GET',
-        url:'db/loadEvents.php',
-        dataType: "json",
-        success:function(data){
-            for (var i = 0; i < data.length; i++) {
-                var tttt = {
-                    id: data[i].event_id,
-                    title : data[i].titel,
-                    start : data[i].datum,
-                    backgroundColor : data[i].farbe
-                };
+    var date_input=$('input[name="date"]'); //our date input has the name "date"
+    var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+    var options={
+        format: 'dd.mm.yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+    };
+    date_input.datepicker(options);
 
-                ttt.push(tttt);
-            }
 
-            $('#calendar').fullCalendar({
-                events: ttt,
-                header: {
-                    left: 'prev,next today',
-                    center: 'custom1',
-                    right: 'title'
-                },
-                height: 700,
-                eventClick: function(info) {
-                    carName = info;
-                    var myObj = {
-                        "event_id" : carName.id
-                    }
-                    $.ajax({
-                        type: "GET",
-                        data: {
-                            'event_id': carName.id
-                        },
-                        dataType: "json",
-                        url: 'db/getRecipeFromEvent.php',
-                        success: function(data){
-                            for (var i = 0; i < data.length; i++) {
-                                document.getElementById('modalDate').value=renderDate2(data[i].datum);
-                                document.getElementById('modaltitellink').innerText = data[i].titel;
-                                document.getElementById('modaltitellink').href = 'rezeptdetails.php?q='+data[i].id;
-                                document.getElementById('modalDate').name = data[i].event_id;
-                                document.getElementById('modalImage').src = data[i].bildpfad;
-                            }
-                            $("#changeModal").modal();
-                        }
-                    });
-                },
+
+
+    //Das Event, welches geklickt wurde, muss zwischengespeichert werden
+    var clickedEvent = '';
+
+    ladeEventsUndErstelleKalender();
+    registriereButtons();
+    registriereAuswahlboxAlternativesGericht();
+
+    function ladeEventsUndErstelleKalender() {
+
+        var eventliste = [];
+        $.ajax({
+            type:'GET',
+            url:'db/loadEvents.php',
+            dataType: "json",
+            success:function(data){
+
+                for (var i = 0; i < data.length; i++) {
+                    var eventObjekt = {
+                        id: data[i].event_id,
+                        title : data[i].titel,
+                        start : data[i].datum,
+                        backgroundColor : data[i].farbe
+                    };
+                    eventliste.push(eventObjekt);
+                }
+
+                erstelleKalender(eventliste);
+
+
+            },
+        });
+    }
+
+    function erstelleKalender(eventliste) {
+        $('#calendar').fullCalendar({
+            events: eventliste,
+            header: {
+                left: 'prev,next today',
+                center: 'custom1',
+                right: 'title'
+            },
+            firstDay: 1,
+            height: 700,
+            eventClick: function(info) {
+                onEventGeklickt(info);
+            },
             customButtons: {
                 custom1: {
                     text: 'Alternatives Gericht hinzufügen',
@@ -71,125 +68,201 @@ $( document ).ready(function() {
                 }
             },
         });
-        },
-  });
-
-  $("#deleteEvent").click(function(){
-    var ev = carName;
-
-    var myObj = {
-        "event_id" : ev.id
     }
 
-    $.ajax({
-      type: "POST",
-      data: {event: JSON.stringify(myObj)},
-      dataType: "text",
-      url: 'db/deleteEvent.php',
-      success: function(php_script_response){
-        $('#calendar').fullCalendar( 'removeEvents', ev.id );
-        $('#changeModal').modal('hide');
-    }
-  });
-});
+    function registriereButtons() {
 
-  $("#changeTarget").click(function(){
-    newDate = renderDate(document.getElementById('modalDate').value);
-    var myObj = {
-      "datum": newDate,
-      "event_id" : document.getElementById('modalDate').name
+        $("#deleteEvent").click(function(){
+            onEventLoeschen();
+        });
+
+        $("#changeTarget").click(function(){
+            onEventVerschieben();
+        });
+
+        $("#target").click(function(){
+            onAlternativesGerichtHinzufuegen();
+        });
     }
 
-    $.ajax({
-      type: "POST",
-      data: {event: JSON.stringify(myObj)},
-      dataType: "text",
-      url: 'db/updateEvent.php',
-      success: function(php_script_response){
-        var ev = carName;
-      ev.start._i = newDate;
-      $('#calendar').fullCalendar( 'removeEvents', ev.id );
-      $('#calendar').fullCalendar('renderEvent', {
-        title: ev.title,
-        start: newDate,
-        allDay: true,
-        backgroundColor : ev.backgroundColor
-      });
-      $('#changeModal').modal('hide');
-    }
-  });
-});
+    function registriereAuswahlboxAlternativesGericht() {
 
-$("#target").click(function(){
-    var color = '#00cc99';
+        $('#exampleModal').on('shown.bs.modal', function () {
+            zeigeEingabefeldAlternativesGericht();
 
-    var e = document.getElementById("selectArt");
-    var titel = e.options[e.selectedIndex].innerText;
+        })
 
-    if (null != document.getElementById("inputGericht")) {
-        titel = 'Alternativ: ' + document.getElementById("inputGericht").value;
     }
 
-    if (document.getElementById("selectArt").value === 'ess') {
-        color = '#FFCC99';
-    } else if (document.getElementById("selectArt").value == 'aus') {
-        color = '#66CCFF';
-    } else {
-        color = '#FFFFCC';
+    function zeigeEingabefeldAlternativesGericht() {
+        var elem = document.getElementById("selectArt");
+        elem.addEventListener("change", function() {
+            if (document.getElementById("selectArt").value == "son") {
+                if (null == document.getElementById("labelGericht")) {
+                    var elem2 = document.getElementById("beschreibungDiv");
+                    var label = document.createElement('label');
+                    label.setAttribute("id", "labelGericht");
+                    label.innerHTML  = "Titel des Rezepts";
+                    var input = document.createElement("input");
+                    input.type = "text";
+                    input.setAttribute("id", "inputGericht");
+                    input.classList.add("form-control");
+                    elem2.appendChild(label);
+                    elem2.appendChild(input);
+                }
+            } else {
+                if (null !== document.getElementById("labelGericht")) {
+                    document.getElementById("labelGericht").remove();
+                    document.getElementById("inputGericht").remove();
+                }
+            }
+        });
     }
 
-    var myObj = {
-        "datum": renderDate(document.getElementById('date').value),
-        "rezept_id": 0,
-        "titel" : titel,
-        "farbe" : color
+    function onEventGeklickt(info) {
+
+        clickedEvent = info;
+        $.ajax({
+            type: "GET",
+            data: {
+                'event_id': info.id
+            },
+            dataType: "json",
+            url: 'db/getRecipeFromEvent.php',
+            success: function(data) {
+
+                document.getElementById('modaltitellink').innerText = '';
+                document.getElementById('modaltitellink').href = '';
+                document.getElementById('modalImage').removeAttribute('src');
+
+                for (var i = 0; i < data.length; i++) {
+                    document.getElementById('modalDate').value=renderDate2(data[i].datum);
+                    document.getElementById('modaltitellink').innerText = data[i].titel;
+                    document.getElementById('modaltitellink').href = 'rezeptdetails.php?q='+data[i].id;
+                    document.getElementById('modalDate').name = data[i].event_id;
+                    document.getElementById('modalImage').src = data[i].bildpfad;
+                }
+                $("#changeModal").modal();
+            },
+            error: function (xhr, txtStatus, errThrown) {
+                console.log(
+                    "XMLHttpRequest: ", xhr,
+                    " Status:", txtStatus,
+                    " Error:",  errThrown
+                );
+            }
+        });
     }
 
-    $('#calendar').fullCalendar('renderEvent', {
-        title: titel,
-        start: renderDate(document.getElementById('date').value),
-        allDay: true,
-        backgroundColor : color
-    });
-
-    $.ajax({
-        type: "POST",
-        data: {event: JSON.stringify(myObj)},
-        dataType: "json",
-        url: 'db/saveEvent.php',
-    });
-
-    $('#exampleModal').modal('hide');
-});
-
-$('#exampleModal').on('shown.bs.modal', function () {
-
-  console.log('clicked');
-/*
-var elem = document.getElementById("selectArt");
-elem.addEventListener("change", test);
-
-function test() {
-    if (document.getElementById("selectArt").value == "son") {
-        if (null == document.getElementById("labelGericht")) {
-            var elem2 = document.getElementById("beschreibungDiv");
-            var label = document.createElement('label');
-            label.setAttribute("id", "labelGericht");
-            label.innerHTML  = "Titel des Rezepts";
-            var input = document.createElement("input");
-            input.type = "text";
-            input.setAttribute("id", "inputGericht");
-            input.classList.add("form-control");
-            elem2.appendChild(label);
-            elem2.appendChild(input);
+    function onEventLoeschen() {
+        var deletedEventObject = {
+            "event_id" : clickedEvent.id
         }
-    } else {
-        if (null !== document.getElementById("labelGericht")) {
-            document.getElementById("labelGericht").remove();
-            document.getElementById("inputGericht").remove();
-        }
+
+        $.ajax({
+            type: "POST",
+            data: {event: JSON.stringify(deletedEventObject)},
+            dataType: "text",
+            url: 'db/deleteEvent.php',
+            success: function(){
+                $('#calendar').fullCalendar( 'removeEvents', clickedEvent.id );
+                $('#changeModal').modal('hide');
+            },
+            error: function (xhr, txtStatus, errThrown) {
+                console.log(
+                    "XMLHttpRequest: ", xhr,
+                    " Status:", txtStatus,
+                    " Error:",  errThrown
+                );
+            },
+        });
     }
 
-}*/
-})
+    function onEventVerschieben() {
+        var newDate = renderDate(document.getElementById('modalDate').value);
+        var movedEventObject = {
+            "datum": newDate,
+            "event_id" : document.getElementById('modalDate').name
+        }
+
+        $.ajax({
+            type: "POST",
+            data: {event: JSON.stringify(movedEventObject)},
+            dataType: "text",
+            url: 'db/updateEvent.php',
+            success: function() {
+                clickedEvent.start._i = newDate;
+                $('#calendar').fullCalendar( 'removeEvents', clickedEvent.id );
+                $('#calendar').fullCalendar('renderEvent', {
+                    title: clickedEvent.title,
+                    start: newDate,
+                    allDay: true,
+                    backgroundColor : clickedEvent.backgroundColor
+                });
+                $('#changeModal').modal('hide');
+            },
+            error: function (xhr, txtStatus, errThrown) {
+                console.log(
+                    "XMLHttpRequest: ", xhr,
+                    " Status:", txtStatus,
+                    " Error:",  errThrown
+                );
+            }
+        });
+    }
+
+    function onAlternativesGerichtHinzufuegen() {
+        var color = '#00cc99';
+
+        var e = document.getElementById("selectArt");
+        var titel = e.options[e.selectedIndex].innerText;
+
+        if (null != document.getElementById("inputGericht")) {
+            titel = 'Alternativ: ' + document.getElementById("inputGericht").value;
+        }
+
+        if (document.getElementById("selectArt").value === 'ess') {
+            color = '#FFCC99';
+        } else if (document.getElementById("selectArt").value == 'aus') {
+            color = '#66CCFF';
+        } else {
+            color = '#FFFFCC';
+        }
+
+        var myObj = {
+            "datum": renderDate(document.getElementById('date').value),
+            "rezept_id": 0,
+            "titel" : titel,
+            "farbe" : color
+        }
+
+        fuegeEventDemKalenderHinzu(titel, color);
+
+        $.ajax({
+            type: "POST",
+            data: {event: JSON.stringify(myObj)},
+            dataType: "json",
+            url: 'db/saveEvent.php',
+        });
+
+        $('#exampleModal').modal('hide');
+    }
+
+    function fuegeEventDemKalenderHinzu(titel, color) {
+        $('#calendar').fullCalendar('renderEvent', {
+            title: titel,
+            start: renderDate(document.getElementById('date').value),
+            allDay: true,
+            backgroundColor : color
+        });
+    }
+
+    function renderDate(date) {
+        var res = date.split(".");
+        return res[2] + '-' + res[1] + '-' + res[0];
+    }
+    function renderDate2(date) {
+        var res = date.split("-");
+        return res[1] + '/' + res[2] + '/' + res[0];
+    }
 });

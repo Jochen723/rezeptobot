@@ -7,15 +7,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <title>Rezeptobot - Kochübersicht</title>
         <!---Font Icon-->
         <link href="css/font-awesome.min.css" rel="stylesheet">
-
         <!-- CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/styles.min.css" rel="stylesheet">
@@ -35,22 +32,6 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
         <script src="js/rezeptplaner.js"></script>
-
-	    <script>
-
-            $(document).ready(function(){
-
-                var date_input=$('input[name="date"]'); //our date input has the name "date"
-                var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-                var options={
-                    format: 'mm/dd/yyyy',
-                    container: container,
-                    todayHighlight: true,
-                    autoclose: true,
-                };
-                date_input.datepicker(options);
-            })
-        </script>
         <script>
             $(function(){
                 $("#navigation").load("header.html");
@@ -58,9 +39,7 @@
             });
          </script>
     </head>
-
     <body>
-
         <div id="navigation"></div>
 	    <div id='calendar' style="margin-top: 8px; margin-left: 20px; margin-right: 20px;"></div>
 	    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -73,7 +52,7 @@
 						<form>
 							<div class="form-group">
 								<label>Datum:</label>
-								<input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+								<input class="form-control" id="date" name="date" placeholder="DD.MM.YYYY" type="text"/>
 							</div>
 							<div class="form-group">
 								<label for="selectArt">Art des Essens:</label>
@@ -84,16 +63,15 @@
 								</select>
 							</div>
 							<div class="form-group" id="beschreibungDiv"></div>
-							<button type="button" id="target" class="btn btn-primary">Save changes</button>
+							<button type="button" id="target" class="btn btn-primary">Speichere Event</button>
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
 
         <div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   			<div class="modal-dialog" role="document">
@@ -107,15 +85,15 @@
                                 <img id="modalImage">
                                 <h5><a id="modaltitellink" href="#"></a></H5>
   								<label>Datum:</label>
-  								<input class="form-control" id="modalDate" name="date" placeholder="MM/DD/YYY" type="text"/>
+  								<input class="form-control" id="modalDate" name="date" placeholder="DD.MM.YYYY" type="text"/>
   							</div>
   							<div class="form-group" id="beschreibungDiv"></div>
-  							<button type="button" id="changeTarget" class="btn btn-primary">Save changes</button>
+  							<button type="button" id="changeTarget" class="btn btn-primary">Speichere Event</button>
                             <button type="button" id="deleteEvent" class="btn btn-primary">Löschen</button>
   						</form>
   					</div>
   					<div class="modal-footer">
-  						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  						<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
   					</div>
   				</div>
   			</div>
