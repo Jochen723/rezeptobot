@@ -64,10 +64,10 @@ session_destroy();
                                                 background-color: #363636;
                                                 color: #fff;"> Login
                                             </a>
-                                            <a id="rezeptaendern" href="registrierung.php" class="btn" style="
+                                            <!--<a id="rezeptaendern" href="registrierung.php" class="btn" style="
                                                 background-color: #363636;
                                                 color: #fff;"> Registrieren
-                                            </a>
+                                            </a>-->
                                         </div>
                                     </div>
                                 </div>

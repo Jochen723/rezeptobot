@@ -31,8 +31,8 @@
     } else {
         $e = new Emp();
         
-        createLog('LOGIN ' . $mail);
-        $query = 'SELECT * FROM user WHERE email = \'' . $mail . '\'';
+        createLog('LOGIN ' . mysqli_real_escape_string($conn, $mail));
+        $query = 'SELECT * FROM user WHERE email = \'' . mysqli_real_escape_string($conn, $mail) . '\'';
         createLog($query);
         
         $result = $conn->query($query);
