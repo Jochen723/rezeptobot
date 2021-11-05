@@ -49,39 +49,16 @@ if(!isset($_SESSION['userid'])) {
             date_input.datepicker(options);
       })
     </script>
+
+      <script>
+          $(function(){
+              $("#navigation").load("header.html");
+              $("#footer").load("footer.html");
+          });
+      </script>
   </head>
   <body>
-      <!-- Navigation -->
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-          <div class="container-fluid justify-content-center">
-              <a class="navbar-brand" href="index.php"><i class="fa fa-cutlery" aria-hidden="true"></i>  Rezeptobot</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-                  <span class="navbar-text">
-                      <?php if(isset($_SESSION['mail'])) {echo $_SESSION['mail'];}?>
-                  </span>
-                  <ul class="navbar-nav">
-                      <li class="nav-item">
-                          <a class="nav-link" href="index.php">Home</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="eventkalender.php">Kalender</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="uebersicht.php">Von A - Z</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="logout.php">Logout</a>
-                      </li>
-                      <li class="nav-item btn-submit-recipe">
-                          <a class="nav-link" href="neuesrezept.php"><i class="fa fa-upload" aria-hidden="true"></i> neues Rezept</a>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-      </nav>
+  <div id="navigation"></div>
       <div class="recipe-detail">
           <div class="container">
               <div class="row justify-content-center">
@@ -245,42 +222,7 @@ if(!isset($_SESSION['userid'])) {
               </div>
           </div>
           <!-- Footer -->
-          <footer>
-              <div class="container">
-                  <div class="row">
-                      <div class="col-lg-3 col-sm-6">
-                          <h5>About</h5>
-                          <p>Nunc at augue gravida est fermentum vulputate. gravida est fermentum vulputate Pellentesque et ipsum in dui malesuada tempus.</p>
-                      </div>
-                      <div class="col-lg-3 col-sm-6">
-                          <h5>Archive</h5>
-                          <ul>
-                              <li><a href="#">June 2018</a></li>
-                              <li><a href="#">July 2018</a></li>
-                              <li><a href="#">August 2018</a></li>
-                              <li><a href="#">September 2018</a></li>
-                          </ul>
-                      </div>
-                      <div class="col-lg-3 col-sm-6">
-                          <h5>Recipes</h5>
-                          <ul>
-                              <li><a href="browse-recipes.html">Browse Recipes</a></li>
-                              <li><a href="recipe-detail.html">Recipe Detail</a></li>
-                              <li><a href="submit-recipes.html">Submit Recipe</a></li>
-                          </ul>
-                      </div>
-                      <div class="col-lg-3 col-sm-6">
-                          <h5>Newsletter</h5>
-                          <form>
-                              <div class="form-group">
-                                  <input type="text" class="form-control">
-                              </div>
-                              <button type="submit" class="btn">Subscribe</button>
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </footer>
+          <div id="footer"></div>
 
           <!-- Copyright -->
           <div class="copyright">
