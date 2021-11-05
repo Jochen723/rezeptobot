@@ -82,7 +82,7 @@ if (!isset($_SESSION['userid'])) {
                 <div class="col-lg-12">
                     <div class="form-group">
                         <label>Titel des Rezepts</label>
-                        <input id="rezepttitel" type="text" class="form-control" oninput="myFunction()">
+                        <input id="rezepttitel" type="text" class="form-control"">
                     </div>
                     <div class="form-group">
                         <label>Kategorien</label>

@@ -58,10 +58,10 @@ $(document).ready(function(){
             for (var i = 0; i < data.categories.length; i++) {
                 var idKategorie = "kategorieSelect" + (i+1);
                 if (i == 0) {
-                    belegeVorhandeneKategorienzeileVor(idKategorie, data.categories[i].id, data.categories[i].kategorie);
+                    belegeVorhandeneKategorienzeileVor(idKategorie, data.categories[i].kategorien_id, data.categories[i].kategorie);
                 } else {
                     erstelleNeueLeereKategorienzeile(idKategorie);
-                    belegeVorhandeneKategorienzeileVor(idKategorie, data.categories[i].id, data.categories[i].kategorie);
+                    belegeVorhandeneKategorienzeileVor(idKategorie, data.categories[i].kategorien_id, data.categories[i].kategorie);
                 }
             }
         }
@@ -253,11 +253,33 @@ $(document).ready(function(){
     }
 
     function belegeVorhandeneKategorienzeileVor(idKategorie, kategorieId, kategorietext) {
-        var x = document.getElementById(idKategorie);
-        var option = document.createElement("option");
-        option.text = kategorietext;
-        option.id = kategorieId;
-        x.add(option);
+
+        $.ajax({
+            type:'GET',
+            url:'db/getCategoryList.php',
+            dataType: "json",
+
+            success:function(data){
+                var x = document.getElementById(idKategorie);
+                for (var i = 0; i < data.length; i++) {
+                    var option = document.createElement("option");
+                    option.text = data[i].kategorie;
+                    option.id = data[i].id;
+
+                    if (data[i].id == kategorieId) {
+                        option.selected = 'selected';
+
+                    }
+
+
+                    x.add(option);
+                }
+            },
+            error: function (request, error) {
+                console.log(arguments);
+                alert(" Can't do because: " + error);
+            },
+        });
     }
 
     function belegeZutatenEinheitenlisteVor(idEinheit, einheitId, einheitText) {
