@@ -1,35 +1,37 @@
 <?php
  header("Content-Type: text/html; charset=utf-8");
 
- include 'db_verbindung.php';
+include 'db_verbindung_pdo.php';
 
  try {
      // Create connection
      $conn = get_db_connection();
-     mysqli_set_charset($conn,"utf8");
-
-     // Check connection
-     if ($conn->connect_error) {
-         throw new Exception('Verbindung zur Datenbank nicht möglich!');
-     }
 
      if (empty($_POST['event'])) {
          throw new Exception('Es wurden keine Daten übergeben.');
      }
 
+     //$jsonobj = '{"titel":"a0511","durchfuehrung":"","anzahlPortionen":0,"einheit":"Portionen","kochzeit":"","vorbereitungszeit":"","zutatenliste":[{"anzahl":"1","einheit":"8","zutat":"158","zusatz":""}],"kategorienliste":{"id":"1"}}';
+
      $test = json_decode($_POST['event']);
      $kategorienliste = $test->kategorienliste;
      $bildpfad = '';
 
+     $data = [
+         'titel' => $test->titel,
+         'durchfuehrung' => $test->durchfuehrung,
+         'anzahlPortionen' => $test->anzahlPortionen,
+         'einheit' => $test->einheit,
+         'kochzeit' => $test->kochzeit,
+         'vorbereitungszeit' => $test->vorbereitungszeit,
+         'bildpfad' => $bildpfad
+     ];
+
      $sql = "INSERT INTO rezept (titel, durchfuehrung, anzahlPortionen, einheit, kochzeit, vorbereitungszeit, bildpfad) 
-        VALUES(?, ?, ?, ?, ?, ?, ?)";
+        VALUES(:titel, :durchfuehrung, :anzahlPortionen, :einheit, :kochzeit, :vorbereitungszeit, :bildpfad)";
      $statement = $conn->prepare($sql);
-     $statement->bind_param('sssssss', $test->titel, $test->durchfuehrung, $test->anzahlPortionen,
-         $test->einheit, $test->kochzeit, $test->vorbereitungszeit, $bildpfad);
-     if (!$statement->execute()) {
-         throw new Exception('Execute-Statement failed');
-     }
-     $new_id = $statement->insert_id;
+     $statement->execute($data);
+     $new_id = $conn->lastInsertId();
 
      if (empty($new_id)) {
          throw new Exception('Speichern fehlgeschlagen');
@@ -41,22 +43,30 @@
              $anzahl = 'NULL';
          }
 
-         $sql = "INSERT INTO rezept_zutatenliste (rezept_id, zutatenliste_id, anzahl, einheit_id, zusatz) VALUES (?, ?, ?, ?, ?)";
+         $data = [
+             'rezept_id' => $new_id,
+             'zutatenliste_id' => $zutat->zutat,
+             'anzahl' => $anzahl,
+             'einheit_id' => $zutat->einheit,
+             'zusatz' => $zutat->zusatz
+         ];
+
+
+         $sql = "INSERT INTO rezept_zutatenliste (rezept_id, zutatenliste_id, anzahl, einheit_id, zusatz) VALUES (:rezept_id, :zutatenliste_id, :anzahl, :einheit_id, :zusatz)";
          $statement = $conn->prepare($sql);
-         $statement->bind_param('sssss', $new_id, $zutat->zutat, $anzahl,
-             $zutat->einheit, $zutat->zusatz);
-         if (!$statement->execute()) {
-             throw new Exception('Execute-Statement failed');
-         }
+         $statement->execute($data);
      }
 
      foreach ($kategorienliste as $kategorie) {
-         $sql = "INSERT INTO rezept_kategorienliste (rezept_id, kategorien_id) VALUES ?, ?";
+
+         $data = [
+             'rezept_id' => $new_id,
+             'kategorien_id' => $kategorie->id
+         ];
+
+         $sql = "INSERT INTO rezept_kategorienliste (rezept_id, kategorien_id) VALUES (:rezept_id, :kategorien_id)";
          $statement = $conn->prepare($sql);
-         $statement->bind_param('ss', $new_id, $kategorie->id);
-         if (!$statement->execute()) {
-             throw new Exception('Execute-Statement failed');
-         }
+         $statement->execute($data);
      }
 
      echo json_encode(array(
