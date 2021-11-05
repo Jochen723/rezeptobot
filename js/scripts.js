@@ -148,6 +148,10 @@ var idKategorie = "kategorieSelect"+zahl2;
         $(this).parent().parent().parent().remove();
     });
 
+    $("#sortable2").on("click", ".minusbtn", function() {
+        $(this).parent().parent().parent().remove();
+    });
+
 
 
 
