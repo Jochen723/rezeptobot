@@ -69,6 +69,11 @@ $(document).ready(function(){
     }
 
     function erstelleTitel(data) {
+        var today =  new Date(data.generalInformations.hinzugefuegt);
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        document.getElementById('rezeptdatum').innerHTML = dd + '.' + mm + '.' + yyyy;
         document.getElementById('rezepttitel').innerHTML = data.generalInformations.titel;
     }
 

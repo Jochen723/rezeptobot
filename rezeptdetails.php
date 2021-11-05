@@ -86,7 +86,7 @@ if(!isset($_SESSION['userid'])) {
           <div class="container">
               <div class="row justify-content-center">
                   <div class="col-lg-12 text-center">
-                      <h4>Oct 30, 2018</h4>
+                      <h4 id="rezeptdatum"></h4>
                       <h1 id="rezepttitel"></h1>
                       <div class="by"><i class="fa fa-user" aria-hidden="true"></i> Jonas Kortum</div>
                   </div>
