@@ -110,8 +110,11 @@ $(document).ready(function(){
     function erstelleDurchfuehrung(data) {
         data.generalInformations.durchfuehrung.replace(/↵/, '<br/>');
         var ol = document.getElementById("zubereitung");
-        var li2 = document.createElement("li");
-        li2.appendChild(document.createTextNode(data.generalInformations.durchfuehrung));
+        var li2 = document.createElement("li")
+        var myDiv = document.createElement("div");
+        myDiv.id = 'myDiv';
+        myDiv.innerHTML = data.generalInformations.durchfuehrung;
+        li2.appendChild(myDiv);
         ol.appendChild(li2);
     }
 

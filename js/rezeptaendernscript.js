@@ -93,6 +93,7 @@ $(document).ready(function(){
 
     function erstelleDurchfuehrung(data) {
         var test = data.generalInformations.durchfuehrung;
+        test = test.replaceAll('<br/>', '\n');
         document.getElementById('durchfuehrung').value = test;
     }
 
@@ -286,6 +287,7 @@ $(document).ready(function(){
             var jsonTest2 = readCategories();
             var titel = document.getElementById("rezepttitel").value;
             var durchfuehrung = document.getElementById("durchfuehrung").value;
+            durchfuehrung = durchfuehrung.replace(/\n/g, '<br/>');
             var anzahlPortionen = document.getElementById("anzahlPortionen").value;
             var kochzeit = document.getElementById("kochzeit").value;
             var vorbereitungszeit = document.getElementById("vorbereitungszeit").value;
@@ -299,7 +301,7 @@ $(document).ready(function(){
             rezept = {
                 "id": getUrlVariables()["q"],
                 "titel": document.getElementById("rezepttitel").value,
-                "durchfuehrung": document.getElementById("durchfuehrung").value,
+                "durchfuehrung": durchfuehrung,
                 "anzahlPortionen" : anzahlPortionen,
                 "einheit" : "Portionen",
                 "kochzeit" : document.getElementById("kochzeit").value,
@@ -314,7 +316,7 @@ $(document).ready(function(){
                 data: {event: JSON.stringify(rezept)},
                 dataType: "json",
                 success:function(data){
-                    window.location.href = "uebersicht.php";
+                    window.location.href = "rezeptdetails.php?q=" + getUrlVariables()["q"];
                 },
                 error: function (xhr, txtStatus, errThrown) {
                     console.log(
