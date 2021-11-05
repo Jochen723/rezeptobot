@@ -202,6 +202,7 @@ $( document ).ready(function() {
                 $('#calendar').fullCalendar( 'removeEvents', clickedEvent.id );
                 $('#calendar').fullCalendar('renderEvent', {
                     title: clickedEvent.title,
+                    id: clickedEvent.id,
                     start: newDate,
                     allDay: true,
                     backgroundColor : clickedEvent.backgroundColor
