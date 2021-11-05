@@ -11,7 +11,6 @@ $(document).ready(function(){
             var rezeptliste = document.getElementById('kategorien');
 
             for (var i = 0; i < data.length; i++) {
-                console.log(i);
 
                 var g = document.createElement('div');
                 g.classList.add("col-lg-4", "col-sm-6");
