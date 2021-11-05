@@ -39,7 +39,11 @@
         <!-- Navigation -->
         <div id="navigation"></div>
 
+
+
+
         <!-- Carousel -->
+        <!--
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -79,6 +83,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="carousel-item">
+                    <img class="third-slide" src="images/Himbeer_Fool_0.jpg" alt="Third slide">
+                    <div class="container">
+                        <div class="carousel-caption text-right">
+                            <h1><a href="recipe-detail.html">Skillet Scalloped Potatoes</a></h1>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <p><a class="btn btn-lg btn-primary" href="recipe-detail.html" role="button">Read more</a></p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -89,26 +103,75 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+        -->
 
+        <!-- Top Recipes -->
+        <center>
+            <img src="logo/rezeptobot.png" alt="centered image" />
+        </center>
+        <div class="top">
 
+            <div class="container">
+                <h5><i class="fa fa-cutlery" aria-hidden="true"></i> Deine geplanten Rezepte</h5>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="box clearfix">
+                            <h6 align="center">03.06.2019</h6>
+                            <a href="recipe-detail.html"><img src="images/Himbeer_Fool_0.jpg" alt=""></a>
+                            <h3><a href="recipe-detail.html">Himbeer-Fool</a></h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="box clearfix">
+                            <h6 align="center">03.06.2019</h6>
+                            <a href="recipe-detail.html"><img src="images/526586-420x280-fix-brokkoli-schinken-quiche.jpeg" alt=""></a>
+                            <h3><a href="recipe-detail.html">Brokkoli - Schinken - Quiche</a></h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="box clearfix">
+                            <h6 align="center">03.06.2019</h6>
+                            <a href="recipe-detail.html"><img src="images/Himbeer_Fool_0.jpg" alt=""></a>
+                            <h3><a href="recipe-detail.html">Hähnchenbrustfilet mit Country-Kartoffeln
+                                </a></h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
         <!-- Top Recipes -->
         <div class="top">
             <div class="container">
+                <h5><i class="fa fa-cutlery" aria-hidden="true"></i> Deine aktuellen Lieblingsrezepte</h5>
                 <div class="row">
                     <div class="col-lg-4">
-                        <h5><i class="fa fa-cutlery" aria-hidden="true"></i> Deine geplanten Rezepte</h5>
                         <div class="box clearfix">
                             <h6 align="center">03.06.2019</h6>
-                            <a href="recipe-detail.html"><img src="images/879716-420x280-fix-nudel-kasseler-pfanne-mit-wirsing2.jpg" alt=""></a>
-                            <h3><a href="recipe-detail.html">Cinnamon Baked Doughnuts</a></h3>
-                            <p>Lorem ipsum dolor sit amet, adipiscing elit...</p>
+                            <a href="recipe-detail.html"><img src="images/Himbeer_Fool_0.jpg" alt=""></a>
+                            <h3><a href="recipe-detail.html">Himbeer-Fool</a></h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="box clearfix">
+                            <h6 align="center">03.06.2019</h6>
+                            <a href="recipe-detail.html"><img src="images/526586-420x280-fix-brokkoli-schinken-quiche.jpeg" alt=""></a>
+                            <h3><a href="recipe-detail.html">Brokkoli - Schinken - Quiche</a></h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="box clearfix">
+                            <h6 align="center">03.06.2019</h6>
+                            <a href="recipe-detail.html"><img src="images/Himbeer_Fool_0.jpg" alt=""></a>
+                            <h3><a href="recipe-detail.html">Hähnchenbrustfilet mit Country-Kartoffeln
+                                </a></h3>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
-
         <!--
         <div class="list">
             <div class="container">

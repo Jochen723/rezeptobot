@@ -40,6 +40,9 @@
 
     <body>
         <div id="navigation"></div>
+        <center>
+            <img src="logo/rezeptobot.png" alt="centered image" style="height:100%;" />
+        </center>
 
         <!-- List Recipes -->
         <div class="list">

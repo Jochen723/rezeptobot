@@ -59,6 +59,9 @@ if(!isset($_SESSION['userid'])) {
   </head>
   <body>
   <div id="navigation"></div>
+  <center>
+      <img src="logo/rezeptobot.png" alt="centered image" style="height:100%;" />
+  </center>
       <div class="recipe-detail">
           <div class="container">
               <div class="row justify-content-center">

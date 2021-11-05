@@ -41,6 +41,9 @@
     </head>
     <body>
         <div id="navigation"></div>
+        <center>
+            <img src="logo/rezeptobot.png" alt="centered image" style="height:100%;width:auto" />
+        </center>
 	    <div id='calendar' style="margin-top: 8px; margin-left: 20px; margin-right: 20px;"></div>
 	    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	        <div class="modal-dialog" role="document">
