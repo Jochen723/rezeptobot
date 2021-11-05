@@ -15,11 +15,14 @@ include 'db_verbindung_pdo.php';
 
      $data = [
          'kategorie' => $test->kategorie,
-         'bildpfad' => ''
      ];
 
 
-     $sql = "INSERT INTO kategorienliste (kategorie, bildpfad) VALUES (:kategorie, :bildpfad)";
+     $sql = "DELETE FROM kategorienliste WHERE id = :kategorie";
+     $statement = $conn->prepare($sql);
+     $statement->execute($data);
+
+     $sql = "DELETE FROM rezept_kategorienliste WHERE kategorien_id = :kategorie";
      $statement = $conn->prepare($sql);
      $statement->execute($data);
 

@@ -11,7 +11,7 @@ header("Content-Type: text/html; charset=utf-8");
      die("Connection failed: " . $conn->connect_error);
  }
 
-$sql = 'select * from kategorienliste ORDER BY id ASC';
+$sql = 'select * from kategorienliste ORDER BY kategorie ASC';
 
 $result = $conn->query($sql);
 while($row = $result->fetch_assoc()) {
