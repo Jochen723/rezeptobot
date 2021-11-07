@@ -30,6 +30,8 @@ $(document).ready(function(){
 
                     //Weitere Informationen
                     erstelleZusaetzlicheInformationen(data);
+
+                    erstelleEvents(data);
                 }
             },
             error: function (xhr, txtStatus, errThrown) {
@@ -168,6 +170,34 @@ $(document).ready(function(){
         x4.appendChild(t3);
         x3.appendChild(x4);
         por3.appendChild(pe3);
+    }
+
+    function erstelleEvents(data) {
+
+        if (data.events.length > 0) {
+            document.getElementById('kochzaehler').innerHTML = 'Bereits ' + data.events.length + ' Mal gekocht';
+
+            for (var i = 0; i < data.events.length; i++) {
+                var por3 = document.getElementById("eventdaten");
+                var pe3 = document.createElement("p");
+                pe3.innerHTML = renderDate2(data.events[i].datum);
+                por3.appendChild(pe3);
+
+            }
+        } else {
+            document.getElementById('kochzaehler').innerHTML = 'Noch nicht gekocht';
+        }
+
+
+    }
+
+    function renderDate2(date) {
+        if (date) {
+            var res = date.split("-");
+            return res[2] + '.' + res[1] + '.' + res[0];
+        }
+        return '';
+
     }
 
     function onRezeptPlanen() {

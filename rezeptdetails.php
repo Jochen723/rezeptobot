@@ -57,6 +57,11 @@ if(!isset($_SESSION['userid'])) {
           });
       </script>
   </head>
+  <style>
+      table, th, td {
+          border:1px solid black;
+      }
+  </style>
   <body>
   <div id="navigation"></div>
   <center>
@@ -196,6 +201,15 @@ if(!isset($_SESSION['userid'])) {
                               </div>
                           </div>
                       </div>
+                      <div class="row">
+                          <div class="col-lg-12 text-center">
+                              <br/>
+                              <h4 id="kochzaehler"></h4>
+                              <div id="eventdaten">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                   </div>
               </div>
           </div>

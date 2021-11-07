@@ -16,11 +16,13 @@ try {
     $generalInformations = getGeneralInformations($rezeptId, $conn);
     $ingredients = getIngredients($rezeptId, $conn);
     $categories = getCategories($rezeptId, $conn);
+    $events = getEvents($rezeptId, $conn);
 
     echo json_encode(array(
         'generalInformations' => $generalInformations,
         'ingredients' => $ingredients,
         'categories' => $categories,
+        'events' => $events,
         'success' => true), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 
 } catch (Exception $ex){
@@ -62,6 +64,27 @@ function getCategories($rezeptId, $conn) {
     $response = array();
     $statement = $conn->prepare("SELECT * FROM kategorienliste INNER JOIN rezept_kategorienliste ON kategorienliste.id = rezept_kategorienliste.kategorien_id WHERE rezept_id = ?");
     if ($statement->execute(array($rezeptId))) {
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC))  {
+            array_push($response, $row);
+        }
+    } else {
+        throw new Exception($statement->errorInfo());
+    }
+
+    return $response;
+}
+
+function getEvents($rezeptId, $conn) {
+    session_start();
+    $response = array();
+
+    $data = [
+        'rezept_id' => (int) $rezeptId,
+        'user_id' => (int) $_SESSION['userid']
+    ];
+
+    $statement = $conn->prepare("SELECT * FROM event WHERE rezept_id = :rezept_id AND user_id = :user_id");
+    if ($statement->execute($data)) {
         while ($row = $statement->fetch(PDO::FETCH_ASSOC))  {
             array_push($response, $row);
         }
