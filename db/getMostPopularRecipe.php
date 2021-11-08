@@ -23,16 +23,17 @@ try {
         $count_array = array();
 
         for ($i=0; $i < count($response); $i++) {
-            if (!array_key_exists($count_array[$response[$i]['rezept_id']], $response)) {
+
+            $tee = $response[$i]['rezept_id'];
+
+            if (!isset($count_array[$tee]) || array_key_exists($count_array[$response[$i]['rezept_id']], $response) == false) {
                 $count_array[$response[$i]['rezept_id']] = 1;
             } else {
                 $count_array[$response[$i]['rezept_id']] = $count_array[$response[$i]['rezept_id']] + 1;
             }
         }
 
-        asort($count_array);
-        $count_array = array_reverse($count_array, true);
-
+        $array = json_decode(json_encode($count_array), true);
 
     } else {
         throw new Exception($statement->errorInfo());
@@ -40,7 +41,7 @@ try {
 
     echo json_encode(array(
         'success' => true,
-        'response' => $count_array
+        'response' => $array
     ));
 
 } catch (Exception $ex){

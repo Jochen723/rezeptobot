@@ -32,6 +32,7 @@
                 $("#footer").load("footer.html");
             });
         </script>
+        <script src="js/homescript.js"></script>
     </head>
 
     <body>
@@ -145,29 +146,7 @@
         <div class="top">
             <div class="container">
                 <h5><i class="fa fa-cutlery" aria-hidden="true"></i> Deine aktuellen Lieblingsrezepte</h5>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="box clearfix">
-                            <h6 align="center">03.06.2019</h6>
-                            <a href="recipe-detail.html"><img src="images/Himbeer_Fool_0.jpg" alt=""></a>
-                            <h3><a href="recipe-detail.html">Himbeer-Fool</a></h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="box clearfix">
-                            <h6 align="center">03.06.2019</h6>
-                            <a href="recipe-detail.html"><img src="images/526586-420x280-fix-brokkoli-schinken-quiche.jpeg" alt=""></a>
-                            <h3><a href="recipe-detail.html">Brokkoli - Schinken - Quiche</a></h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="box clearfix">
-                            <h6 align="center">03.06.2019</h6>
-                            <a href="recipe-detail.html"><img src="images/Himbeer_Fool_0.jpg" alt=""></a>
-                            <h3><a href="recipe-detail.html">Hähnchenbrustfilet mit Country-Kartoffeln
-                                </a></h3>
-                        </div>
-                    </div>
+                <div class="row" id="mostPopular">
                 </div>
 
             </div>
