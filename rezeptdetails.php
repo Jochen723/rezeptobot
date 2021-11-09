@@ -202,6 +202,24 @@ if(!isset($_SESSION['userid'])) {
                           </div>
                       </div>
                       <div class="row">
+                        <div class="col-lg-12 text-center" id="kommentare">
+                            <br/>
+                            <h4 id="kochzaehler2">Kommentare</h4>
+                            <div id="eventdaten">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 text-center" id="neuerKommentar">
+                            <br/>
+                            <h4 id="kochzaehler2">neuer Kommentar</h4>
+
+                            <div class="form-group">
+                                <textarea id="newComment" class="form-control" rows="4" required="required"></textarea>
+                            </div>
+                            <a id="rezeptaendern" class="btn btn-comment" style="
+                            background-color: #363636;
+                            color: #fff;"> Kommentar speichern
+                            </a>
+                        </div>
                           <div class="col-lg-12 text-center">
                               <br/>
                               <h4 id="kochzaehler"></h4>

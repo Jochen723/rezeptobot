@@ -32,6 +32,8 @@ $(document).ready(function(){
                     erstelleZusaetzlicheInformationen(data);
 
                     erstelleEvents(data);
+
+                    erstelleKommentare(data);
                 }
             },
             error: function (xhr, txtStatus, errThrown) {
@@ -68,7 +70,73 @@ $(document).ready(function(){
         $(".btn-delete").click(function() {
             onDelete();
         });
+
+        $(".btn-comment").click(function() {
+          var durchfuehrung = document.getElementById("newComment").value;
+
+          durchfuehrung = durchfuehrung.replace(/\n/g, '<br/>');
+
+          var myObj = {
+              "rezept_id": getUrlVariables()["q"],
+              "kommentar": durchfuehrung.replace(/\n/g, '<br/>')
+          }
+
+          $.ajax({
+              type:'POST',
+              data: {event: JSON.stringify(myObj)},
+              url:'db/saveNewComment.php',
+              dataType: "json",
+
+              success:function(data){
+                var userName = "<?php echo $_SESSION['userid'] ?>";
+
+                var kommentareDiv = document.getElementById("kommentare");
+                var myDiv = document.createElement("div");
+                myDiv.id = 'kommentareUnterDiv';
+                myDiv.classList.add("form-group");
+                myDiv.style.border='1px solid';
+                var h6 = document.createElement ("h6");
+                myDiv.appendChild(h6);
+
+                var usermail = '';
+                if (data.response.length > 0) {
+                  for (var i = 0; i < data.response.length; i++) {
+                    usermail = data.response[i].email;
+                  }
+
+                }
+
+                h6.innerHTML = usermail + ' am ' + formatDate(new Date());
+                var pe = document.createElement("p");
+                pe.innerHTML = document.getElementById("newComment").value;
+                myDiv.appendChild(pe);
+                kommentareDiv.appendChild(myDiv);
+              },
+              error: function (xhr, txtStatus, errThrown) {
+                  console.log(
+                      "XMLHttpRequest: ", xhr,
+                      " Status:", txtStatus,
+                      " Error:",  errThrown
+                  );
+              },
+          });
+        });
     }
+
+    function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [day, month, year].join('.');
+}
+
 
     function erstelleTitel(data) {
         var today =  new Date(data.generalInformations.hinzugefuegt);
@@ -189,6 +257,32 @@ $(document).ready(function(){
         }
 
 
+    }
+
+    function erstelleKommentare(data) {
+
+      if (data.comments.length > 0) {
+        for (var i = 0; i < data.comments.length; i++) {
+          var kommentareDiv = document.getElementById("kommentare");
+          var myDiv = document.createElement("div");
+          myDiv.id = 'kommentareUnterDiv' + i;
+          myDiv.classList.add("form-group");
+          myDiv.style.border='1px solid';
+          var h6 = document.createElement ("h6");
+          myDiv.appendChild(h6);
+
+          var today =  new Date(data.comments[i].hinzugefuegt);
+          var dd = String(today.getDate()).padStart(2, '0');
+          var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+          var yyyy = today.getFullYear();
+
+          h6.innerHTML = data.comments[i].email + ' am ' + dd + '.' + mm + '.' + yyyy;
+          var pe = document.createElement("p");
+          pe.innerHTML = data.comments[i].kommentar;
+          myDiv.appendChild(pe);
+          kommentareDiv.appendChild(myDiv);
+        }
+      }
     }
 
     function renderDate2(date) {

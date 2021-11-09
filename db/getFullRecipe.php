@@ -17,12 +17,14 @@ try {
     $ingredients = getIngredients($rezeptId, $conn);
     $categories = getCategories($rezeptId, $conn);
     $events = getEvents($rezeptId, $conn);
+    $comments = getComments($rezeptId, $conn);
 
     echo json_encode(array(
         'generalInformations' => $generalInformations,
         'ingredients' => $ingredients,
         'categories' => $categories,
         'events' => $events,
+        'comments' => $comments,
         'success' => true), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 
 } catch (Exception $ex){
@@ -93,5 +95,25 @@ function getEvents($rezeptId, $conn) {
     }
 
     return $response;
+}
+
+function getComments($rezeptId, $conn) {
+  $response = array();
+
+  $data = [
+      'rezept_id' => (int) $rezeptId,
+      'user_id' => (int) $_SESSION['userid']
+  ];
+
+  $statement = $conn->prepare("SELECT kommentare.rezept_id, kommentare.kommentar, kommentare.hinzugefuegt, user.email FROM kommentare INNER JOIN user ON kommentare.user_id = user.id WHERE rezept_id = :rezept_id AND user_id = :user_id");
+  if ($statement->execute($data)) {
+      while ($row = $statement->fetch(PDO::FETCH_ASSOC))  {
+          array_push($response, $row);
+      }
+  } else {
+      throw new Exception($statement->errorInfo());
+  }
+
+  return $response;
 }
 ?>
