@@ -8,12 +8,9 @@
 
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
             <span class="navbar-text">
-                <?php
-                    if(isset($_SESSION['mail'])) {echo $_SESSION['mail'];}
-                ?>
-            </span>
-            <span class="navbar-text">
-                    <?php if(isset($_SESSION['mail'])) {echo $_SESSION['mail'];}?>
+                   <?php
+                   session_start();
+                   if(isset($_SESSION['mail'])) {echo $_SESSION['mail'];}?>
                 </span>
             <ul class="navbar-nav">
                 <li class="nav-item">
