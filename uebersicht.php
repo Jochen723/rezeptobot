@@ -32,7 +32,7 @@
 
         <script>
             $(function(){
-              $("#navigation").load("header.html");
+              $("#navigation").load("header.php");
               $("#footer").load("footer.html");
             });
         </script>
@@ -47,6 +47,14 @@
         <!-- List Recipes -->
         <div class="list">
             <div class="container">
+                <form name="maschine">
+                    Suchtext:
+                    <input id="sucheingabe" name="ein" type="text" size="20" value="">
+                    <button type="button" class="btn btn-primary btn-suche" style="
+                                  background-color: #363636;
+                                  color: #fff;">Suchen</button>
+                </form>
+                <br/>
                 <div id="rezeptliste" class="row">
                     <div class="col-lg-12">
                         <h5><i class="fa fa-cutlery" aria-hidden="true"></i>  von A bis Z</h5>

@@ -1,5 +1,48 @@
 $(document).ready(function(){
 
+    registerButtons();
+
+    function registerButtons() {
+        $(".btn-suche").click(function() {
+            onSuche();
+        });
+    }
+
+    function onSuche() {
+
+        showAllRecipes();
+
+        var test = document.getElementById('sucheingabe');
+        var sucheingabe = test.value;
+
+        var i = 1;
+        var rezept = document.getElementById("recipe" + i);
+
+
+        while(rezept) {
+            var rezepttitel = document.getElementById("recipe_title" + i);
+            var rezTit = rezepttitel.innerHTML;
+            if (!(rezTit.toLowerCase().includes(sucheingabe.toLowerCase()))) {
+                document.getElementById("recipe" + i).style.display = "none";
+            }
+            i++;
+            rezept = document.getElementById("recipe" + i);
+        }
+    }
+
+    function showAllRecipes() {
+        var i = 1;
+        var rezept = document.getElementById("recipe" + i);
+
+
+        while(rezept) {
+            document.getElementById("recipe" + i).style.display = "block";
+            i++;
+            rezept = document.getElementById("recipe" + i);
+        }
+    }
+
+
     $.ajax({
         type:'GET',
         url:'db/getRecipeOverview.php',
@@ -11,10 +54,9 @@ $(document).ready(function(){
             var rezeptliste = document.getElementById('rezeptliste');
 
             for (var i = 0; i < data.length; i++) {
-                console.log(i);
-
                 var g = document.createElement('div');
                 g.classList.add("col-lg-4", "col-sm-6");
+                g.id = "recipe" + (i+1);
 
                 var box = document.createElement('div');
                 box.classList.add("box", "grid", "recipes");
@@ -41,6 +83,7 @@ $(document).ready(function(){
                 box.appendChild(a);
 
                 var a2 = document.createElement('a');
+                a2.id = "recipe_title" + (i+1);
                 var linkText = document.createTextNode(data[i].titel);
                 a2.appendChild(linkText);
                 a2.href = "rezeptdetails.php?q=" + data[i].id;
