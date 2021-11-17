@@ -85,7 +85,7 @@ function getEvents($rezeptId, $conn) {
         'user_id' => (int) $_SESSION['userid']
     ];
 
-    $statement = $conn->prepare("SELECT * FROM event WHERE rezept_id = :rezept_id AND user_id = :user_id");
+    $statement = $conn->prepare("SELECT * FROM event WHERE rezept_id = :rezept_id AND user_id = :user_id ORDER BY datum");
     if ($statement->execute($data)) {
         while ($row = $statement->fetch(PDO::FETCH_ASSOC))  {
             array_push($response, $row);
@@ -109,8 +109,6 @@ function getComments($rezeptId, $conn) {
       while ($row = $statement->fetch(PDO::FETCH_ASSOC))  {
           array_push($response, $row);
       }
-  } else {
-      throw new Exception($statement->errorInfo());
   }
 
   return $response;
