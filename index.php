@@ -28,7 +28,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
             $(function(){
-                $("#navigation").load("header.html");
+                $("#navigation").load("header.php");
                 $("#footer").load("footer.html");
             });
         </script>
@@ -111,41 +111,17 @@
             <img src="logo/rezeptobot.png" alt="centered image" />
         </center>
         <div class="top">
-
             <div class="container">
-                <h5><i class="fa fa-cutlery" aria-hidden="true"></i> Deine geplanten Rezepte</h5>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="box clearfix">
-                            <h6 align="center">03.06.2019</h6>
-                            <a href="recipe-detail.html"><img src="images/Himbeer_Fool_0.jpg" alt=""></a>
-                            <h3><a href="recipe-detail.html">Himbeer-Fool</a></h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="box clearfix">
-                            <h6 align="center">03.06.2019</h6>
-                            <a href="recipe-detail.html"><img src="images/526586-420x280-fix-brokkoli-schinken-quiche.jpeg" alt=""></a>
-                            <h3><a href="recipe-detail.html">Brokkoli - Schinken - Quiche</a></h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="box clearfix">
-                            <h6 align="center">03.06.2019</h6>
-                            <a href="recipe-detail.html"><img src="images/Himbeer_Fool_0.jpg" alt=""></a>
-                            <h3><a href="recipe-detail.html">Hähnchenbrustfilet mit Country-Kartoffeln
-                                </a></h3>
-                        </div>
-                    </div>
+                <h5><i class="fa fa-cutlery" aria-hidden="true"></i> Deine drei nächsten geplanten Rezepte</h5>
+                <div class="row" id="nextPlanned">
                 </div>
-
             </div>
         </div>
 
         <!-- Top Recipes -->
         <div class="top">
             <div class="container">
-                <h5><i class="fa fa-cutlery" aria-hidden="true"></i> Deine aktuellen Lieblingsrezepte</h5>
+                <h5><i class="fa fa-cutlery" aria-hidden="true"></i> Deine drei aktuellen Lieblingsrezepte</h5>
                 <div class="row" id="mostPopular">
                 </div>
 
