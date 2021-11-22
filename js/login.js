@@ -17,7 +17,7 @@ $(document).ready(function(){
                 } else if (data.passwortKorrekt == false) {
                     alert("Passwort ist falsch");
                 } else {
-                    window.location.href = "uebersicht.php";
+                    window.location.href = "module/rezeptuebersicht/masken/rezeptuebersicht.php";
                 }
             },
         });
