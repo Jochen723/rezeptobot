@@ -21,6 +21,8 @@ try {
         }
 
         $count_array = array();
+        $count_array_titel = array();
+        $count_array_bildpfad = array();
 
         for ($i=0; $i < count($response); $i++) {
 
@@ -28,63 +30,38 @@ try {
 
             if (!isset($count_array[$tee]) || array_key_exists($count_array[$response[$i]['rezept_id']], $response) == false) {
                 $count_array[$response[$i]['rezept_id']] = 1;
+                $count_array_titel[$response[$i]['rezept_id']] = $response[$i]['titel'];
+                $count_array_bildpfad[$response[$i]['rezept_id']] = $response[$i]['bildpfad'];
             } else {
                 $count_array[$response[$i]['rezept_id']] = $count_array[$response[$i]['rezept_id']] + 1;
             }
         }
 
         class Motorcycle
-{
-    public $rezept_id;
-    public $anzahl;
-    public $titel;
-    public $bildpfad;
-}
+        {
+            public $rezept_id;
+            public $anzahl;
+            public $titel;
+            public $bildpfad;
+        }
 
-$bikes = array();
+        $bikes = array();
 
-foreach ($count_array as $rezept) {
-  $bike1 = new Motorcycle();
-  $bike1->rezept_id = $rezept['rezept_id'];
-  $bike1->anzahl = $rezept;
-  $bike1->titel = 'Titel 1';
-  $bike1->bildpfad = 'images/526586-420x280-fix-brokkoli-schinken-quiche.jpeg';
+        foreach ($count_array as $key => $value) {
+            $bike1 = new Motorcycle();
+            $bike1->rezept_id = $key;
+            $bike1->anzahl = $value;
+            $bike1->titel = $count_array_titel[$key];
+            $bike1->bildpfad = $count_array_bildpfad[$key];
 
-  array_push($bikes, $bike1);
+            array_push($bikes, $bike1);
 
-  // code...
-}
-
-
-for ($i=0; $i < count($count_array); $i++) {
+        }
 
 
 
 
-
-}
-
-/*
-$bike1 = new Motorcycle();
-$bike1->rezept_id = 60;
-$bike1->anzahl = 2;
-$bike1->titel = 'Titel 1';
-$bike1->bildpfad = 'images/526586-420x280-fix-brokkoli-schinken-quiche.jpeg';
-$bike2 = new Motorcycle();
-$bike2->rezept_id = 62;
-$bike2->anzahl = 4;
-$bike2->titel = 'Titel 2';
-$bike2->bildpfad = 'images/526586-420x280-fix-brokkoli-schinken-quiche.jpeg';
-$bike3 = new Motorcycle();
-$bike3->rezept_id = 64;
-$bike3->anzahl = 3;
-$bike3->titel = 'Titel 3';
-$bike3->bildpfad = 'images/526586-420x280-fix-brokkoli-schinken-quiche.jpeg';
-
-
-$bikes = array($bike1, $bike2, $bike3);
-*/
-usort($bikes, "cmp");
+        usort($bikes, "cmp");
 
 
     } else {
@@ -93,7 +70,7 @@ usort($bikes, "cmp");
 
     echo json_encode(array(
         'success' => true,
-        'response' => $bikes
+        'response' => array_slice($bikes, 0, 3)
     ));
 
 } catch (Exception $ex){
