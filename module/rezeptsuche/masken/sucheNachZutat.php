@@ -19,7 +19,7 @@ if (!isset($_SESSION['userid'])) {
     <link href="../../../css/select2.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="icon" href="favicon.ico" />
-    <link href="../css/kategorien.css" rel="stylesheet">
+    <link href="../css/rezeptsuche.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="../../../js/plugins/jquery.min.js"></script>
