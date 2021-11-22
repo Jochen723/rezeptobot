@@ -28,6 +28,9 @@
                     <a class="nav-link" href="../../kategorien/masken/kategorieuebersicht.php">Kategorien</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="../../rezeptsuche/masken/sucheNachZutat.php">Suche</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="../../nutzermanagement/masken/logout.php">Logout</a>
                 </li>
 
