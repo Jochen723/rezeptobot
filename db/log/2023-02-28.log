@@ -1,0 +1,8 @@
+2023-02-28 21:39:11 LOGIN victoria@familie-kortum.com
+2023-02-28 21:39:11 SELECT * FROM user WHERE email = 'victoria@familie-kortum.com'
+2023-02-28 21:39:11 Benutzername victoria@familie-kortum.com ist vorhanden.
+2023-02-28 21:39:11 Passwort für Benutzername victoria@familie-kortum.com ist korrekt.
+2023-02-28 21:42:14 LOGIN victoria@familie-kortum.com
+2023-02-28 21:42:14 SELECT * FROM user WHERE email = 'victoria@familie-kortum.com'
+2023-02-28 21:42:14 Benutzername victoria@familie-kortum.com ist vorhanden.
+2023-02-28 21:42:14 Passwort für Benutzername victoria@familie-kortum.com ist korrekt.
